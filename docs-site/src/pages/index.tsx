@@ -170,7 +170,7 @@ export default function Home(): React.ReactElement {
               <div className="op-card">
                 <div className="op-glyphs"><span className="rd">↓</span></div>
                 <div className="op-label">Reduce</div>
-                <div className="op-syntax"><span className="rd">↓</span>expr &nbsp;/&nbsp; expr.<span className="rd">↓</span></div>
+                <div className="op-syntax">expr.<span className="rd">↓</span> &nbsp;/&nbsp; <span className="rd">↓</span>(expr)</div>
                 <p className="op-desc">
                   Evaluates a <code style={{fontSize:'.75rem',color:'var(--syn-type)'}}>QTerm</code>{' '}
                   at generation time by compiling and running it (via{' '}
@@ -182,7 +182,7 @@ export default function Home(): React.ReactElement {
               <div className="op-card">
                 <div className="op-glyphs"><span className="em">←</span></div>
                 <div className="op-label">Emit</div>
-                <div className="op-syntax">term.<span className="em">←</span></div>
+                <div className="op-syntax">term.<span className="em">←</span> &nbsp;/&nbsp; <span className="em">←</span>(term)</div>
                 <p className="op-desc">
                   Appends a term into the surrounding variadic block, such as a Rust{' '}
                   <code style={{fontSize:'.75rem',color:'var(--syn-kw)'}}>{'{ }'}</code>{' '}
