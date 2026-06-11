@@ -59,7 +59,7 @@ export default function Home(): React.ReactElement {
     <div id="landing">
       <Head>
         <title>Quilt &mdash; Multi-stage, multi-language metaprogramming</title>
-        <meta name="description" content="Quilt lets you embed, manipulate, and generate code in any language from ordinary Rust or Python programs, using Unicode arrow-bracket syntax and a structured AST IR." />
+        <meta name="description" content="Quilt lets you embed, manipulate, and generate code in any language from a host program, using Unicode arrow-bracket syntax and a structured AST IR." />
       </Head>
 
       <header>
@@ -81,8 +81,8 @@ export default function Home(): React.ReactElement {
         <section className="hero">
           <h1>Metaprogramming<br />across <span className="accent">every language.</span></h1>
           <p className="hero-sub">
-            Quilt lets you write Rust or Python programs that embed, manipulate, and
-            generate code in any language &mdash; using Unicode arrow-bracket syntax
+            Quilt lets you embed, manipulate, and generate code in any language
+            from a host program &mdash; using Unicode arrow-bracket syntax
             and a structured AST IR.
           </p>
           <div className="hero-ctas">
@@ -197,7 +197,7 @@ export default function Home(): React.ReactElement {
         <section className="langs">
           <h2 className="section-title">Host and target languages</h2>
           <p className="section-sub">
-            Write your metaprogram in Rust or Python; quote into any of the targets below.
+            Write your metaprogram in a host language; quote into any of the targets below.
           </p>
 
           <div className="lang-table-wrap">
