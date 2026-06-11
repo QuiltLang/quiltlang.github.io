@@ -1,0 +1,117 @@
+/* ── Quilt brand colors ──────────────────────────────────── */
+:root {
+  --ifm-color-primary:          #f97316;
+  --ifm-color-primary-dark:     #ea6c0d;
+  --ifm-color-primary-darker:   #de660c;
+  --ifm-color-primary-darkest:  #b8540a;
+  --ifm-color-primary-light:    #fb8530;
+  --ifm-color-primary-lighter:  #fb8f3e;
+  --ifm-color-primary-lightest: #fca968;
+
+  --ifm-code-font-size: 90%;
+  --ifm-font-family-monospace: 'SFMono-Regular', 'Cascadia Code', 'Fira Code', 'Menlo', monospace;
+  --docusaurus-highlighted-code-line-bg: rgba(249, 115, 22, 0.1);
+}
+
+/* Dark mode — default, matching the landing page */
+[data-theme='dark'] {
+  --ifm-color-primary:          #fb923c;
+  --ifm-color-primary-dark:     #f97316;
+  --ifm-color-primary-darker:   #ea6c0d;
+  --ifm-color-primary-darkest:  #b8540a;
+  --ifm-color-primary-light:    #fca868;
+  --ifm-color-primary-lighter:  #fdb380;
+  --ifm-color-primary-lightest: #fecba1;
+
+  --ifm-background-color:       #0d1117;
+  --ifm-background-surface-color: #161b22;
+  --ifm-navbar-background-color:  rgba(13, 17, 23, 0.92);
+  --ifm-footer-background-color:  #161b22;
+  --ifm-toc-border-color:         #30363d;
+  --ifm-color-content:            #c9d1d9;
+  --ifm-heading-color:            #f0f6fc;
+  --ifm-border-color:             #30363d;
+
+  --docusaurus-highlighted-code-line-bg: rgba(249, 115, 22, 0.12);
+}
+
+/* ── Navbar ──────────────────────────────────────────────── */
+[data-theme='dark'] .navbar {
+  border-bottom: 1px solid #30363d;
+  backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .navbar__logo img {
+  filter: none;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+[data-theme='dark'] .theme-doc-sidebar-container {
+  border-right-color: #30363d !important;
+}
+
+/* ── Code blocks ─────────────────────────────────────────── */
+[data-theme='dark'] pre code {
+  background-color: #0d1117 !important;
+}
+
+[data-theme='dark'] .prism-code {
+  background: #161b22 !important;
+}
+
+/* ── Quilt glyph syntax classes (used in code blocks) ──── */
+/* These apply to <span> elements inside highlighted code */
+.token.quilt-quote   { color: #f97316; font-weight: 700; }
+.token.quilt-unquote { color: #60a5fa; font-weight: 700; }
+.token.quilt-lift    { color: #facc15; font-weight: 700; }
+.token.quilt-reduce  { color: #c084fc; font-weight: 700; }
+.token.quilt-emit    { color: #34d399; font-weight: 700; }
+
+/* ── Admonitions ─────────────────────────────────────────── */
+[data-theme='dark'] .alert {
+  background-color: #161b22;
+  border-color: #30363d;
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+[data-theme='dark'] table {
+  border-color: #30363d;
+}
+
+[data-theme='dark'] th,
+[data-theme='dark'] td {
+  border-color: #30363d;
+}
+
+[data-theme='dark'] tr:nth-child(even) {
+  background-color: #161b22;
+}
+
+/* ── TOC ─────────────────────────────────────────────────── */
+[data-theme='dark'] .table-of-contents__link {
+  color: #8b949e;
+}
+
+[data-theme='dark'] .table-of-contents__link:hover,
+[data-theme='dark'] .table-of-contents__link--active {
+  color: #fb923c;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+[data-theme='dark'] .footer {
+  border-top: 1px solid #30363d;
+}
+
+/* ── Inline code ─────────────────────────────────────────── */
+[data-theme='dark'] code {
+  background-color: #1c2128;
+  border: 1px solid #30363d;
+  color: #ffa657;
+}
+
+/* Don't double-border code inside pre */
+pre code {
+  border: none !important;
+  background: transparent !important;
+  color: inherit !important;
+}
