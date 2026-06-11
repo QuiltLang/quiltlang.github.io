@@ -2,8 +2,8 @@
   "name": "quiltlang.github.io",
   "private": true,
   "scripts": {
-    "docs:start": "cd docs-site && npm start",
-    "docs:build": "cd docs-site && npm run build",
-    "docs:serve": "cd docs-site && npm run serve"
+    "start": "cd docs-site && npm start",
+    "build": "cd docs-site && npm run build",
+    "serve": "cd docs-site && npm run serve"
   }
 }

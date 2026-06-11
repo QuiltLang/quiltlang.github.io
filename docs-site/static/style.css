@@ -272,8 +272,16 @@ code, pre {
 
 .ops-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+@media (min-width: 560px) {
+  .ops-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .ops-grid { grid-template-columns: repeat(5, 1fr); }
 }
 
 .op-card {
@@ -283,12 +291,11 @@ code, pre {
   padding: 1.25rem;
 }
 
-.op-glyph {
+.op-glyphs {
   font-family: 'SFMono-Regular', 'Cascadia Code', 'Fira Code', monospace;
   font-size: 2rem;
   line-height: 1;
   margin-bottom: 0.65rem;
-  display: block;
 }
 
 .op-label {

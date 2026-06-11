@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quilt &mdash; Multi-stage, multi-language metaprogramming</title>
   <meta name="description" content="Quilt lets you embed, manipulate, and generate code in any language from ordinary Rust or Python programs, using Unicode arrow-bracket syntax and a structured AST IR.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="quilt.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/img/quilt.svg" type="image/svg+xml">
 </head>
 <body>
 
 <!-- ── Navigation ──────────────────────────────────────────────── -->
 <header>
   <nav>
-    <a href="." class="nav-logo">
-      <img src="quilt.svg" alt="">
+    <a href="/" class="nav-logo">
+      <img src="/img/quilt.svg" alt="">
       <span>Quilt</span>
     </a>
     <div class="nav-links">
-      <a href="docs/">Docs</a>
+      <a href="/docs/">Docs</a>
       <a href="https://github.com/QuiltLang/quilt" target="_blank" rel="noopener">GitHub</a>
     </div>
   </nav>
@@ -35,7 +35,7 @@
     and a structured AST IR.
   </p>
   <div class="hero-ctas">
-    <a href="docs/" class="btn btn-primary">Read the Docs</a>
+    <a href="/docs/" class="btn btn-primary">Read the Docs</a>
     <a href="https://github.com/QuiltLang/quilt" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
   </div>
 </section>
@@ -96,14 +96,14 @@
 <!-- ── How It Works ─────────────────────────────────────────────── -->
 <div class="how">
   <div class="how-inner">
-    <h2 class="section-title">Four operators. Any language.</h2>
+    <h2 class="section-title">Five operators. Any language.</h2>
     <p class="section-sub">
       The entire system is built on five Unicode glyphs that compose cleanly across language boundaries.
     </p>
 
     <div class="ops-grid">
       <div class="op-card">
-        <span class="op-glyph qo">↖</span><span class="op-glyph qc" style="margin-left:.15em">↗</span>
+        <div class="op-glyphs"><span class="qo">↖</span><span class="qc">↗</span></div>
         <div class="op-label">Quote</div>
         <div class="op-syntax"><span class="la">lang</span><span class="qo">↖</span> &hellip; <span class="qc">↗</span></div>
         <p class="op-desc">
@@ -117,7 +117,7 @@
       </div>
 
       <div class="op-card">
-        <span class="op-glyph uo">↙</span><span class="op-glyph uc" style="margin-left:.15em">↘</span>
+        <div class="op-glyphs"><span class="uo">↙</span><span class="uc">↘</span></div>
         <div class="op-label">Unquote</div>
         <div class="op-syntax"><span class="uo">↙</span> expr <span class="uc">↘</span></div>
         <p class="op-desc">
@@ -129,7 +129,7 @@
       </div>
 
       <div class="op-card">
-        <span class="op-glyph li">↑</span>
+        <div class="op-glyphs"><span class="li">↑</span></div>
         <div class="op-label">Lift</div>
         <div class="op-syntax">value.<span class="li">↑</span> &nbsp;/&nbsp; <span class="li">↑</span>(value)</div>
         <p class="op-desc">
@@ -142,7 +142,7 @@
       </div>
 
       <div class="op-card">
-        <span class="op-glyph rd">↓</span>
+        <div class="op-glyphs"><span class="rd">↓</span></div>
         <div class="op-label">Reduce</div>
         <div class="op-syntax"><span class="rd">↓</span>expr &nbsp;/&nbsp; expr.<span class="rd">↓</span></div>
         <p class="op-desc">
@@ -154,7 +154,7 @@
       </div>
 
       <div class="op-card">
-        <span class="op-glyph em">←</span>
+        <div class="op-glyphs"><span class="em">←</span></div>
         <div class="op-label">Emit</div>
         <div class="op-syntax">term.<span class="em">←</span></div>
         <p class="op-desc">
@@ -322,7 +322,7 @@
 <!-- ── Footer ───────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-links">
-    <a href="docs/">Documentation</a>
+    <a href="/docs/">Documentation</a>
     <a href="https://github.com/QuiltLang/quilt" target="_blank" rel="noopener">GitHub</a>
     <a href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">Examples</a>
     <a href="https://github.com/QuiltLang/quilt/issues" target="_blank" rel="noopener">Issues</a>

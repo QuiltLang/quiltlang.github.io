@@ -10,7 +10,7 @@ const config: Config = {
   future: { v4: true },
 
   url: 'https://quiltlang.github.io',
-  baseUrl: '/docs/',
+  baseUrl: '/',
 
   organizationName: 'QuiltLang',
   projectName: 'quiltlang.github.io',
@@ -31,7 +31,7 @@ const config: Config = {
         docs: {
           // Read docs directly from the quilt repo wiki
           path: '../../quilt/docs/wiki',
-          routeBasePath: '/',
+          routeBasePath: '/docs',
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/QuiltLang/quilt/tree/main/docs/wiki/',
         },
@@ -44,7 +44,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/quilt-social.png',
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
@@ -55,7 +54,7 @@ const config: Config = {
       logo: {
         alt: 'Quilt logo',
         src: 'img/quilt.svg',
-        href: 'https://quiltlang.github.io',
+        href: '/',
         target: '_self',
       },
       items: [
@@ -78,26 +77,17 @@ const config: Config = {
         {
           title: 'Documentation',
           items: [
-            { label: 'Concepts', to: '/concepts' },
-            { label: 'QTerm IR', to: '/qterm' },
-            { label: 'CLI & Scripts', to: '/cli' },
+            { label: 'Concepts', to: '/docs/concepts' },
+            { label: 'QTerm IR', to: '/docs/qterm' },
+            { label: 'CLI & Scripts', to: '/docs/cli' },
           ],
         },
         {
           title: 'More',
           items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/QuiltLang/quilt',
-            },
-            {
-              label: 'Examples',
-              href: 'https://github.com/QuiltLang/quilt/tree/main/examples',
-            },
-            {
-              label: 'Issues',
-              href: 'https://github.com/QuiltLang/quilt/issues',
-            },
+            { label: 'GitHub',   href: 'https://github.com/QuiltLang/quilt' },
+            { label: 'Examples', href: 'https://github.com/QuiltLang/quilt/tree/main/examples' },
+            { label: 'Issues',   href: 'https://github.com/QuiltLang/quilt/issues' },
           ],
         },
       ],

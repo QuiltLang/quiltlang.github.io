@@ -37,15 +37,8 @@ jobs:
       - name: Install dependencies
         run: cd docs-site && npm ci
 
-      - name: Build Docusaurus docs
+      - name: Build
         run: cd docs-site && npm run build
-        # Outputs to ../docs/ (root docs/)
-
-      - name: Stage deployment directory
-        run: |
-          mkdir -p _deploy
-          cp index.html style.css quilt.svg .nojekyll _deploy/
-          cp -r docs _deploy/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -53,7 +46,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _deploy
+          path: docs-site/build
 
   deploy:
     needs: build
