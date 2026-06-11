@@ -222,6 +222,15 @@
   font-family: 'SFMono-Regular', 'Cascadia Code', 'Fira Code', 'Menlo', monospace;
   font-size: 0.81rem;
   line-height: 1.75;
+  background: transparent;
+}
+
+/* Override Docusaurus dark-mode inline-code chip styling */
+#landing code {
+  border: none;
+  padding: 0;
+  color: inherit;
+  border-radius: 0;
 }
 
 /* ── Syntax Highlight Spans ── */
@@ -270,24 +279,20 @@
 }
 
 #landing .ops-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 }
 
-@media (min-width: 560px) {
-  #landing .ops-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (min-width: 1000px) {
-  #landing .ops-grid { grid-template-columns: repeat(5, 1fr); }
-}
-
 #landing .op-card {
+  flex: 1 1 180px;
+  max-width: 240px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem;
+  text-align: center;
 }
 
 #landing .op-glyphs {
@@ -325,17 +330,21 @@
 }
 
 #landing .lang-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.9rem;
   margin-top: 2.25rem;
 }
 
 #landing .lang-card {
+  flex: 1 1 160px;
+  max-width: 220px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem 1.1rem;
+  text-align: center;
 }
 
 #landing .lang-name {
@@ -411,16 +420,20 @@
   padding: 4rem 1.5rem;
 }
 #landing .tenets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.25rem;
   margin-top: 2.5rem;
 }
 #landing .tenet-card {
+  flex: 1 1 280px;
+  max-width: 420px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.5rem;
+  text-align: center;
 }
 #landing .tenet-n {
   font-family: monospace;
