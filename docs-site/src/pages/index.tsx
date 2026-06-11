@@ -205,39 +205,46 @@ export default function Home(): React.ReactElement {
               <thead>
                 <tr>
                   <th>Language</th>
-                  <th>Role</th>
+                  <th>Meta</th>
+                  <th>Object</th>
                   <th>Notes</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="lang-name">Rust</td>
-                  <td className="lang-roles"><span className="badge badge-host">Host</span><span className="badge badge-target">Target</span></td>
+                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes">✓</td>
                   <td className="lang-desc">Primary host. Full <code>MetaLanguage</code> support. Generated from <code>mk_meta.rs.quilt</code> by bootstrap.</td>
                 </tr>
                 <tr>
                   <td className="lang-name">Python</td>
-                  <td className="lang-roles"><span className="badge badge-host">Host</span><span className="badge badge-target">Target</span></td>
+                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes">✓</td>
                   <td className="lang-desc">Second host language. PyO3 runtime module provides the same <code>QTerm</code> API in Python.</td>
                 </tr>
                 <tr>
                   <td className="lang-name">HTML</td>
-                  <td className="lang-roles"><span className="badge badge-target">Target</span></td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-yes">✓</td>
                   <td className="lang-desc">Quote and splice HTML document fragments for code-generated web reports and templates.</td>
                 </tr>
                 <tr>
                   <td className="lang-name">WGSL</td>
-                  <td className="lang-roles"><span className="badge badge-target">Target</span></td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-yes">✓</td>
                   <td className="lang-desc">Generate GPU shader code at build time. Lift Rust values directly into WGSL literal syntax.</td>
                 </tr>
                 <tr>
                   <td className="lang-name">Zsh</td>
-                  <td className="lang-roles"><span className="badge badge-target">Target</span></td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-yes">✓</td>
                   <td className="lang-desc">Generate shell scripts with correct quoting. Rust strings lift into properly escaped zsh words.</td>
                 </tr>
                 <tr>
                   <td className="lang-name">Bash</td>
-                  <td className="lang-roles"><span className="badge badge-target">Target</span></td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-yes">✓</td>
                   <td className="lang-desc">Same as Zsh &mdash; a separate target with Bash-specific quoting semantics.</td>
                 </tr>
               </tbody>
