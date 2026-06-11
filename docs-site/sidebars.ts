@@ -39,7 +39,6 @@ const sidebars: SidebarsConfig = {
         { type: 'doc', id: 'bootstrap',         label: 'Bootstrap' },
         { type: 'doc', id: 'adding-a-language', label: 'Adding a Language' },
         { type: 'doc', id: 'nanobots',          label: 'Nanobots' },
-        { type: 'doc', id: 'improvements',      label: 'Possible Improvements' },
       ],
     },
   ],
