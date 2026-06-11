@@ -59,7 +59,7 @@ export default function Home(): React.ReactElement {
     <div id="landing">
       <Head>
         <title>Quilt &mdash; Multi-stage, multi-language metaprogramming</title>
-        <meta name="description" content="Quilt lets you embed, manipulate, and generate code in any language from a host program, using Unicode arrow-bracket syntax and a structured AST IR." />
+        <meta name="description" content="Quilt lets metaprograms in any language generate and manipulate code in any other language using standardized arrow glyphs." />
       </Head>
 
       <header>
@@ -81,9 +81,8 @@ export default function Home(): React.ReactElement {
         <section className="hero">
           <h1>Metaprogramming<br />across <span className="accent">every language.</span></h1>
           <p className="hero-sub">
-            Quilt lets you embed, manipulate, and generate code in any language
-            from a host program &mdash; using Unicode arrow-bracket syntax
-            and a structured AST IR.
+            Quilt lets metaprograms in any language generate and manipulate
+            code in any other language using standardized arrow glyphs.
           </p>
           <div className="hero-ctas">
             <a href="/docs/" className="btn btn-primary">Read the Docs</a>
