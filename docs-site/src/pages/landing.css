@@ -225,7 +225,19 @@
   background: transparent;
 }
 
-/* Override Docusaurus dark-mode inline-code chip styling */
+/* Override Docusaurus !important rules for code inside our panels.
+   custom.css sets [data-theme='dark'] pre code { background: #0d1117 !important }
+   which makes the code interior darker than the panel surface. We need
+   !important with higher specificity (1,0,2) to beat that (0,1,2) rule. */
+#landing pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+/* Inline code in descriptions — no chip, just monospace text */
 #landing code {
   border: none;
   padding: 0;
