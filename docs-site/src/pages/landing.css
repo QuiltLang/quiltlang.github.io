@@ -427,44 +427,6 @@
   padding: 0.6rem 1rem;
 }
 
-/* ── FizzBuzz Example ── */
-#landing .example {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-#landing .example-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-}
-#landing .example-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  align-items: start;
-}
-
-@media (max-width: 680px) {
-  #landing .example-layout { grid-template-columns: 1fr; }
-}
-
-#landing .example-explain {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
-#landing .example-explain p + p { margin-top: 0.75rem; }
-#landing .example-explain strong { color: var(--text); font-weight: 600; }
-#landing .example-explain code {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.05rem 0.35rem;
-  font-size: 0.78rem;
-}
-
 /* ── Tenets ── */
 #landing .tenets {
   max-width: var(--max-w);

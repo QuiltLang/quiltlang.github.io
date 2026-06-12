@@ -29,31 +29,6 @@ const squaresOutput = `<code><span class="kw">def</span> <span class="fn">main</
 
 <span class="fn">main</span>()</code>`;
 
-const fizzbuzzCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
-<span class="kw">use</span> quilt::prelude::*;
-
-<span class="kw">fn</span> <span class="fn">main</span>() -&gt; <span class="ty">Result</span>&lt;()&gt; {
-    <span class="kw">let</span> n: <span class="ty">i32</span> = <span class="nu">20</span>;
-
-    <span class="cm">// FizzBuzz decisions run at *generation* time.</span>
-    <span class="cm">// The emitted program is straight-line println!s.</span>
-    <span class="kw">let</span> program = <span class="la">rs</span><span class="qo">↖</span>{
-        <span class="uo">↙</span>{
-            <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">1</span>..=n {
-                <span class="kw">let</span> label = <span class="kw">if</span> i % <span class="nu">15</span> == <span class="nu">0</span> {
-                    <span class="st">"FizzBuzz"</span>.<span class="fn">to_string</span>()
-                } <span class="kw">else if</span> i % <span class="nu">3</span> == <span class="nu">0</span> {
-                    <span class="st">"Fizz"</span>.<span class="fn">to_string</span>()
-                } <span class="kw">else if</span> i % <span class="nu">5</span> == <span class="nu">0</span> {
-                    <span class="st">"Buzz"</span>.<span class="fn">to_string</span>()
-                } <span class="kw">else</span> { i.<span class="fn">to_string</span>() };
-                <span class="la">rs</span><span class="qo">↖</span><span class="mc">println!</span>(<span class="uo">↙</span>label.<span class="li">↑</span><span class="uc">↘</span>);<span class="qc">↗</span>.<span class="em">←</span>;
-            }
-        }<span class="uc">↘</span>
-    }<span class="qc">↗</span>;
-
-    program.<span class="rd">↓</span>
-}</code>`;
 
 export default function Home(): React.ReactElement {
   return (
@@ -254,48 +229,6 @@ export default function Home(): React.ReactElement {
             </table>
           </div>
         </section>
-
-        {/* ── FizzBuzz Example ── */}
-        <div className="example">
-          <div className="example-inner">
-            <h2 className="section-title">Variadic Generation with <span className="em">←</span></h2>
-            <p className="section-sub">
-              Loops that run at generation time and build programs one statement at a time.
-            </p>
-
-            <div className="example-layout">
-              <div className="code-panel">
-                <div className="code-panel-header">
-                  <span className="lang-dot dot-quilt"></span>
-                  fizzbuzz_gen.rs.quilt
-                </div>
-                <pre dangerouslySetInnerHTML={{__html: fizzbuzzCode}} />
-              </div>
-
-              <div className="example-explain">
-                <p>
-                  The outer <span className="qo" style={{fontFamily:'monospace'}}>↖</span>&hellip;<span className="qc" style={{fontFamily:'monospace'}}>↗</span> quotes a Rust block as a <code>QTerm</code>.
-                  Inside it, the <span className="uo" style={{fontFamily:'monospace'}}>↙</span>&hellip;<span className="uc" style={{fontFamily:'monospace'}}>↘</span>{' '}
-                  splices a <em>generator loop</em> that runs entirely at code-generation time.
-                </p>
-                <p>
-                  Each iteration of the <code>for</code> loop calls{' '}
-                  <code><span className="em" style={{fontFamily:'monospace'}}>←</span></code>{' '}
-                  to append one <code>println!</code> statement to the growing block.
-                  No <code>if</code>, no arithmetic, no modular reduction survives into the output.
-                </p>
-                <p>
-                  The final <span className="rd" style={{fontFamily:'monospace'}}>↓</span> (reduce)
-                  compiles the generated Rust source and runs it immediately, all at generation time.
-                </p>
-                <p>
-                  The generated program for <code>n&nbsp;=&nbsp;20</code> is just 20 flat <code>println!</code>{' '}
-                  calls with the labels baked in as string constants.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* ── Tenets ── */}
         <section className="tenets">
