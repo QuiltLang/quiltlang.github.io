@@ -148,6 +148,10 @@
 #landing .btn-secondary:hover { border-color: var(--text-muted); color: var(--heading); }
 
 /* ── Code Showcase ── */
+#landing .showcase {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
 #landing .showcase-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -258,8 +262,6 @@
 
 /* ── How It Works ── */
 #landing .how {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 #landing .how-inner {
@@ -328,6 +330,10 @@
 }
 
 /* ── Languages ── */
+#landing .langs {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
 #landing .langs-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -420,8 +426,6 @@
 
 /* ── Tenets ── */
 #landing .tenets {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 #landing .tenets-inner {
@@ -469,8 +473,6 @@
 
 /* ── Examples ── */
 #landing .examples-band {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 #landing .examples-inner {
@@ -527,6 +529,7 @@
 
 /* ── Footer ── */
 #landing footer {
+  background: var(--surface);
   border-top: 1px solid var(--border);
   padding: 2.25rem 1.5rem;
   text-align: center;
