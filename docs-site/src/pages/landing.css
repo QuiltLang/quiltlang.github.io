@@ -514,11 +514,20 @@
   line-height: 1.6;
   flex: 1;
 }
+#landing .example-card-links {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
 #landing .example-card-link {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--brand);
+  text-decoration: none;
 }
+#landing .example-card-link:hover { color: var(--brand-hover); }
+#landing .example-card-link-muted { color: var(--text-muted); }
+#landing .example-card-link-muted:hover { color: var(--text); }
 
 /* ── Footer ── */
 #landing footer {

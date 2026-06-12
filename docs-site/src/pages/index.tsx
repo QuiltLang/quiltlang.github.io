@@ -286,14 +286,17 @@ export default function Home(): React.ReactElement {
                 </p>
                 <span className="example-card-link">View on GitHub &rarr;</span>
               </a>
-              <a className="example-card" href="https://github.com/QuiltLang/nanobots" target="_blank" rel="noopener">
+              <div className="example-card">
                 <div className="example-card-title">Nanobots</div>
                 <p className="example-card-desc">
                   A gas-metered state-machine toolchain that uses Quilt to generate
                   GPU-friendly WGSL and HTML at build time.
                 </p>
-                <span className="example-card-link">View on GitHub &rarr;</span>
-              </a>
+                <div className="example-card-links">
+                  <a href="https://asvarga.github.io/site/nanobots/" target="_blank" rel="noopener" className="example-card-link">Live Demo &rarr;</a>
+                  <a href="https://github.com/QuiltLang/nanobots" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">GitHub &rarr;</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
