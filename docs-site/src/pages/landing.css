@@ -471,6 +471,55 @@
   line-height: 1.6;
 }
 
+/* ── Examples ── */
+#landing .examples-band {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+#landing .examples-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+#landing .examples-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+#landing .example-card {
+  flex: 1 1 280px;
+  max-width: 420px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: border-color 0.15s;
+}
+#landing .example-card:hover { border-color: var(--brand); }
+#landing .example-card-title {
+  font-weight: 700;
+  color: var(--heading);
+  font-size: 1rem;
+}
+#landing .example-card-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  flex: 1;
+}
+#landing .example-card-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand);
+}
+
 /* ── Footer ── */
 #landing footer {
   border-top: 1px solid var(--border);

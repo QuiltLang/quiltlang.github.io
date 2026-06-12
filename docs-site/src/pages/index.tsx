@@ -271,6 +271,33 @@ export default function Home(): React.ReactElement {
           </div>
         </section>
 
+        {/* ── Examples ── */}
+        <div className="examples-band">
+          <div className="examples-inner">
+            <h2 className="section-title">See It in Action</h2>
+            <p className="section-sub">Real projects built with Quilt.</p>
+
+            <div className="examples-grid">
+              <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
+                <div className="example-card-title">Examples</div>
+                <p className="example-card-desc">
+                  Annotated <code>.quilt</code> files covering the core operators,
+                  cross-language generation, and lifted values.
+                </p>
+                <span className="example-card-link">View on GitHub &rarr;</span>
+              </a>
+              <a className="example-card" href="https://github.com/QuiltLang/nanobots" target="_blank" rel="noopener">
+                <div className="example-card-title">Nanobots</div>
+                <p className="example-card-desc">
+                  A gas-metered state-machine toolchain that uses Quilt to generate
+                  GPU-friendly WGSL and HTML at build time.
+                </p>
+                <span className="example-card-link">View on GitHub &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </main>
 
       <footer>
