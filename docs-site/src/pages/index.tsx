@@ -170,6 +170,7 @@ export default function Home(): React.ReactElement {
 
         {/* ── Languages ── */}
         <section className="langs">
+          <div className="langs-inner">
           <h2 className="section-title">Supported Languages</h2>
           <p className="section-sub">
             Languages with Meta support can drive generation; Object languages can be quoted and spliced into.
@@ -228,10 +229,12 @@ export default function Home(): React.ReactElement {
               </tbody>
             </table>
           </div>
+          </div>
         </section>
 
         {/* ── Tenets ── */}
         <section className="tenets">
+          <div className="tenets-inner">
           <h2 className="section-title">Design Tenets</h2>
           <p className="section-sub">The principles behind every design decision in Quilt.</p>
 
@@ -268,6 +271,7 @@ export default function Home(): React.ReactElement {
                 <code style={{fontSize:'.8rem'}}>Language</code> impl.
               </p>
             </div>
+          </div>
           </div>
         </section>
 

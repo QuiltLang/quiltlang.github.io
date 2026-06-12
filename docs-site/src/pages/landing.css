@@ -337,7 +337,7 @@
 }
 
 /* ── Languages ── */
-#landing .langs {
+#landing .langs-inner {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 4rem 1.5rem;
@@ -429,6 +429,11 @@
 
 /* ── Tenets ── */
 #landing .tenets {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+#landing .tenets-inner {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 4rem 1.5rem;
@@ -473,9 +478,7 @@
 
 /* ── Examples ── */
 #landing .examples-band {
-  background: var(--surface);
   border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
 }
 #landing .examples-inner {
   max-width: var(--max-w);
