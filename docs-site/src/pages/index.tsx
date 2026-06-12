@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
 import { SiRust, SiPython, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
+import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld } from 'react-icons/tb';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -179,6 +180,7 @@ export default function Home(): React.ReactElement {
 
             <div className="examples-grid">
               <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
+                <TbCode className="example-card-icon" />
                 <div className="example-card-title">Examples</div>
                 <p className="example-card-desc">
                   Annotated <code>.quilt</code> files covering the core operators,
@@ -187,6 +189,7 @@ export default function Home(): React.ReactElement {
                 <span className="example-card-link">View on GitHub &rarr;</span>
               </a>
               <div className="example-card">
+                <TbRobot className="example-card-icon" />
                 <div className="example-card-title">Nanobots</div>
                 <p className="example-card-desc">
                   A gas-metered state-machine toolchain that uses Quilt to generate
@@ -273,6 +276,7 @@ export default function Home(): React.ReactElement {
 
           <div className="tenets-grid">
             <div className="tenet-card">
+              <TbStack2 className="tenet-icon" />
               <div className="tenet-n">Tenet 01</div>
               <div className="tenet-title">Code should be generic over representation.</div>
               <p className="tenet-desc">
@@ -284,6 +288,7 @@ export default function Home(): React.ReactElement {
               </p>
             </div>
             <div className="tenet-card">
+              <TbBraces className="tenet-icon" />
               <div className="tenet-n">Tenet 02</div>
               <div className="tenet-title">A language shouldn&rsquo;t need a second language for metaprogramming.</div>
               <p className="tenet-desc">
@@ -295,6 +300,7 @@ export default function Home(): React.ReactElement {
               </p>
             </div>
             <div className="tenet-card">
+              <TbWorld className="tenet-icon" />
               <div className="tenet-n">Tenet 03</div>
               <div className="tenet-title">Support all languages.</div>
               <p className="tenet-desc">

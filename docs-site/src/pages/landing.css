@@ -449,6 +449,13 @@
   padding: 1.5rem;
   text-align: center;
 }
+#landing .tenet-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--brand);
+  margin-bottom: 0.75rem;
+}
+
 #landing .tenet-n {
   font-family: monospace;
   font-size: 0.75rem;
@@ -501,6 +508,12 @@
   transition: border-color 0.15s;
 }
 #landing .example-card:hover { border-color: var(--brand); }
+#landing .example-card-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--brand);
+  flex-shrink: 0;
+}
 #landing .example-card-title {
   font-weight: 700;
   color: var(--heading);
