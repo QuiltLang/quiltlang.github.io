@@ -96,6 +96,10 @@
   margin: 0 auto;
   padding: 5rem 1.5rem 3.5rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
 }
 
 #landing .hero h1 {
@@ -104,7 +108,6 @@
   line-height: 1.12;
   color: var(--heading);
   letter-spacing: -0.03em;
-  margin-bottom: 1.2rem;
 }
 
 #landing .hero h1 .accent { color: var(--brand); }
@@ -113,7 +116,6 @@
   font-size: 1.05rem;
   color: var(--text-muted);
   max-width: 580px;
-  margin: 0 auto 2.25rem;
   line-height: 1.75;
 }
 
@@ -389,6 +391,15 @@
   font-weight: 700;
   color: var(--heading);
   font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+#landing .lang-icon {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.2em;
+  margin-right: 0.5em;
 }
 
 #landing .lang-yes {
@@ -406,6 +417,14 @@
   color: var(--text-muted);
   font-size: 0.82rem;
   line-height: 1.5;
+}
+
+#landing .lang-more-cell {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-style: italic;
+  padding: 0.6rem 1rem;
 }
 
 /* ── FizzBuzz Example ── */

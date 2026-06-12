@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
+import { SiRust, SiPython, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -121,7 +122,7 @@ export default function Home(): React.ReactElement {
         {/* ── How It Works ── */}
         <div className="how">
           <div className="how-inner">
-            <h2 className="section-title">Five operators. Any language.</h2>
+            <h2 className="section-title">Five Operators. Any Language.</h2>
             <p className="section-sub">
               The entire system is built on five Unicode glyphs that compose cleanly across language boundaries.
             </p>
@@ -194,9 +195,9 @@ export default function Home(): React.ReactElement {
 
         {/* ── Languages ── */}
         <section className="langs">
-          <h2 className="section-title">Host and target languages</h2>
+          <h2 className="section-title">Supported Languages</h2>
           <p className="section-sub">
-            Write your metaprogram in a host language; quote into any of the targets below.
+            Languages with Meta support can drive generation; Object languages can be quoted and spliced into.
           </p>
 
           <div className="lang-table-wrap">
@@ -211,40 +212,43 @@ export default function Home(): React.ReactElement {
               </thead>
               <tbody>
                 <tr>
-                  <td className="lang-name">Rust</td>
+                  <td className="lang-name"><SiRust className="lang-icon" style={{color:'#CE422B'}} />Rust</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-desc">Primary host. Full <code>MetaLanguage</code> support. Generated from <code>mk_meta.rs.quilt</code> by bootstrap.</td>
                 </tr>
                 <tr>
-                  <td className="lang-name">Python</td>
+                  <td className="lang-name"><SiPython className="lang-icon" style={{color:'#FFD43B'}} />Python</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-desc">Second host language. PyO3 runtime module provides the same <code>QTerm</code> API in Python.</td>
                 </tr>
                 <tr>
-                  <td className="lang-name">HTML</td>
+                  <td className="lang-name"><SiHtml5 className="lang-icon" style={{color:'#E34F26'}} />HTML</td>
                   <td className="lang-no">&mdash;</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-desc">Quote and splice HTML document fragments for code-generated web reports and templates.</td>
                 </tr>
                 <tr>
-                  <td className="lang-name">WGSL</td>
+                  <td className="lang-name"><SiWebgpu className="lang-icon" style={{color:'#B48AE0'}} />WGSL</td>
                   <td className="lang-no">&mdash;</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-desc">Generate GPU shader code at build time. Lift Rust values directly into WGSL literal syntax.</td>
                 </tr>
                 <tr>
-                  <td className="lang-name">Zsh</td>
+                  <td className="lang-name"><SiZsh className="lang-icon" style={{color:'#89E051'}} />Zsh</td>
                   <td className="lang-no">&mdash;</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-desc">Generate shell scripts with correct quoting. Rust strings lift into properly escaped zsh words.</td>
                 </tr>
                 <tr>
-                  <td className="lang-name">Bash</td>
+                  <td className="lang-name"><SiGnubash className="lang-icon" style={{color:'#4EAA25'}} />Bash</td>
                   <td className="lang-no">&mdash;</td>
                   <td className="lang-yes">✓</td>
                   <td className="lang-desc">Same as Zsh &mdash; a separate target with Bash-specific quoting semantics.</td>
+                </tr>
+                <tr className="lang-more">
+                  <td colSpan={4} className="lang-more-cell">More languages coming soon&hellip;</td>
                 </tr>
               </tbody>
             </table>
@@ -254,7 +258,7 @@ export default function Home(): React.ReactElement {
         {/* ── FizzBuzz Example ── */}
         <div className="example">
           <div className="example-inner">
-            <h2 className="section-title">Variadic generation with <span className="em">←</span></h2>
+            <h2 className="section-title">Variadic Generation with <span className="em">←</span></h2>
             <p className="section-sub">
               Loops that run at generation time and build programs one statement at a time.
             </p>
@@ -295,7 +299,7 @@ export default function Home(): React.ReactElement {
 
         {/* ── Tenets ── */}
         <section className="tenets">
-          <h2 className="section-title">Design tenets</h2>
+          <h2 className="section-title">Design Tenets</h2>
           <p className="section-sub">The principles behind every design decision in Quilt.</p>
 
           <div className="tenets-grid">
