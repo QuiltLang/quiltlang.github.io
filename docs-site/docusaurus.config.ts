@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Quilt',
-  tagline: 'Multi-stage, multi-language metaprogramming',
+  tagline: 'Polyglot metaprogramming language',
   favicon: 'img/quilt.svg',
 
   future: { v4: true },
@@ -91,7 +91,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Quilt &mdash; multi-stage, multi-language metaprogramming`,
+      copyright: `Quilt &mdash; polyglot metaprogramming language`,
     },
     prism: {
       theme: prismThemes.oneDark,

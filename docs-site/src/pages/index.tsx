@@ -35,7 +35,7 @@ export default function Home(): React.ReactElement {
   return (
     <div id="landing">
       <Head>
-        <title>Quilt &mdash; Multi-stage, multi-language metaprogramming</title>
+        <title>Quilt &mdash; Polyglot metaprogramming language</title>
         <meta name="description" content="Quilt lets metaprograms in any language generate and manipulate code in any other language using standardized arrow glyphs." />
       </Head>
 
@@ -323,7 +323,7 @@ export default function Home(): React.ReactElement {
           <a href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">Examples</a>
           <a href="https://github.com/QuiltLang/quilt/issues" target="_blank" rel="noopener">Issues</a>
         </div>
-        <p>Quilt &mdash; multi-stage, multi-language metaprogramming</p>
+        <p>Quilt &mdash; polyglot metaprogramming language</p>
       </footer>
     </div>
   );
