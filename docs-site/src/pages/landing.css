@@ -534,6 +534,7 @@
 
 /* ── Footer ── */
 #landing footer {
+  background: var(--surface);
   border-top: 1px solid var(--border);
   padding: 2.25rem 1.5rem;
   text-align: center;
