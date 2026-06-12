@@ -148,20 +148,11 @@
 #landing .btn-secondary:hover { border-color: var(--text-muted); color: var(--heading); }
 
 /* ── Code Showcase ── */
-#landing .showcase {
+#landing .showcase-inner {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 1.5rem 5rem;
+  padding: 4rem 1.5rem;
 }
-
-#landing .showcase-intro {
-  text-align: center;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-#landing .showcase-intro strong { color: var(--text); font-weight: 600; }
 
 #landing .code-split {
   display: grid;
@@ -478,7 +469,9 @@
 
 /* ── Examples ── */
 #landing .examples-band {
+  background: var(--surface);
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 #landing .examples-inner {
   max-width: var(--max-w);
@@ -534,7 +527,6 @@
 
 /* ── Footer ── */
 #landing footer {
-  background: var(--surface);
   border-top: 1px solid var(--border);
   padding: 2.25rem 1.5rem;
   text-align: center;

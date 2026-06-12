@@ -66,34 +66,6 @@ export default function Home(): React.ReactElement {
           </div>
         </section>
 
-        {/* ── Code Showcase ── */}
-        <section className="showcase">
-          <p className="showcase-intro">
-            A Rust program that generates Python.{' '}
-            <strong>The squares are computed at generation time in Rust</strong>; the emitted Python contains only the results.
-          </p>
-
-          <div className="code-split">
-            <div className="code-panel">
-              <div className="code-panel-header">
-                <span className="lang-dot dot-quilt"></span>
-                squares.py.rs.quilt
-              </div>
-              <pre dangerouslySetInnerHTML={{__html: squaresCode}} />
-            </div>
-
-            <div className="split-arrow">&#8594;</div>
-
-            <div className="code-panel">
-              <div className="code-panel-header">
-                <span className="lang-dot dot-python"></span>
-                squares.py &nbsp;<span style={{color:'var(--syn-cmt)'}}>(generated)</span>
-              </div>
-              <pre dangerouslySetInnerHTML={{__html: squaresOutput}} />
-            </div>
-          </div>
-        </section>
-
         {/* ── How It Works ── */}
         <div className="how">
           <div className="how-inner">
@@ -163,6 +135,67 @@ export default function Home(): React.ReactElement {
                   <code style={{fontSize:'.75rem',color:'var(--syn-kw)'}}>{'{ }'}</code>{' '}
                   or Python function body. Enables loops that build programs one statement at a time.
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Example ── */}
+        <section className="showcase">
+          <div className="showcase-inner">
+            <h2 className="section-title">Example</h2>
+            <p className="section-sub">
+              A Rust program that generates Python.{' '}
+              The squares are computed at generation time in Rust; the emitted Python contains only the results.
+            </p>
+
+            <div className="code-split">
+              <div className="code-panel">
+                <div className="code-panel-header">
+                  <span className="lang-dot dot-quilt"></span>
+                  squares.py.rs.quilt
+                </div>
+                <pre dangerouslySetInnerHTML={{__html: squaresCode}} />
+              </div>
+
+              <div className="split-arrow">&#8594;</div>
+
+              <div className="code-panel">
+                <div className="code-panel-header">
+                  <span className="lang-dot dot-python"></span>
+                  squares.py &nbsp;<span style={{color:'var(--syn-cmt)'}}>(generated)</span>
+                </div>
+                <pre dangerouslySetInnerHTML={{__html: squaresOutput}} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── See It in Action ── */}
+        <div className="examples-band">
+          <div className="examples-inner">
+            <h2 className="section-title">See It in Action</h2>
+            <p className="section-sub">Real projects built with Quilt.</p>
+
+            <div className="examples-grid">
+              <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
+                <div className="example-card-title">Examples</div>
+                <p className="example-card-desc">
+                  Annotated <code>.quilt</code> files covering the core operators,
+                  cross-language generation, and lifted values.
+                </p>
+                <span className="example-card-link">View on GitHub &rarr;</span>
+              </a>
+              <div className="example-card">
+                <div className="example-card-title">Nanobots</div>
+                <p className="example-card-desc">
+                  A gas-metered state-machine toolchain that uses Quilt to generate
+                  GPU-friendly WGSL and HTML at build time.
+                </p>
+                <div className="example-card-links">
+                  <a href="https://asvarga.github.io/site/nanobots/" target="_blank" rel="noopener" className="example-card-link">Live Demo &rarr;</a>
+                  <a href="https://github.com/QuiltLang/nanobots" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">GitHub &rarr;</a>
+                </div>
               </div>
             </div>
           </div>
@@ -274,36 +307,6 @@ export default function Home(): React.ReactElement {
           </div>
           </div>
         </section>
-
-        {/* ── Examples ── */}
-        <div className="examples-band">
-          <div className="examples-inner">
-            <h2 className="section-title">See It in Action</h2>
-            <p className="section-sub">Real projects built with Quilt.</p>
-
-            <div className="examples-grid">
-              <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
-                <div className="example-card-title">Examples</div>
-                <p className="example-card-desc">
-                  Annotated <code>.quilt</code> files covering the core operators,
-                  cross-language generation, and lifted values.
-                </p>
-                <span className="example-card-link">View on GitHub &rarr;</span>
-              </a>
-              <div className="example-card">
-                <div className="example-card-title">Nanobots</div>
-                <p className="example-card-desc">
-                  A gas-metered state-machine toolchain that uses Quilt to generate
-                  GPU-friendly WGSL and HTML at build time.
-                </p>
-                <div className="example-card-links">
-                  <a href="https://asvarga.github.io/site/nanobots/" target="_blank" rel="noopener" className="example-card-link">Live Demo &rarr;</a>
-                  <a href="https://github.com/QuiltLang/nanobots" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">GitHub &rarr;</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
       </main>
 
