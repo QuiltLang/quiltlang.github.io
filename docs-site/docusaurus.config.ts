@@ -65,6 +65,15 @@ const config: Config = {
           label: 'Docs',
         },
         {
+          // Static demo under static/demo/ (served at /demo/), not a
+          // Docusaurus route. The `pathname://` prefix links straight to the
+          // file, bypassing the SPA router and broken-link checker.
+          href: 'pathname:///demo/',
+          target: '_self',
+          label: 'Demo',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/QuiltLang/quilt',
           label: 'GitHub',
           position: 'right',
