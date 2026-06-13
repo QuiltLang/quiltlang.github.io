@@ -13,7 +13,7 @@
 // view, like nanobots' GPU-shader toggle) and the rendered HTML on the left,
 // driven by a bottom compile bar with ok/err/busy status.
 
-import initRuntime from "quilt-wasm";
+import initRuntime from "quilt";
 import { WASI } from "./wasi-shim.js";
 
 const $ = (id) => document.getElementById(id);
@@ -50,7 +50,7 @@ function expand(source) {
 }
 
 // Import the expanded TypeScript as a module and call its render(). The blob
-// module's bare `quilt-wasm` import resolves through the page import map to the
+// module's bare `quilt` import resolves through the page import map to the
 // already-initialised runtime, so it shares the same wasm instance.
 async function run(tsSource) {
   const url = URL.createObjectURL(new Blob([tsSource], { type: "text/javascript" }));
