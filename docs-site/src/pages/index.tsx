@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
 import { SiRust, SiPython, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
-import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld } from 'react-icons/tb';
+import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox } from 'react-icons/tb';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -179,6 +179,16 @@ export default function Home(): React.ReactElement {
             <p className="section-sub">Real projects built with Quilt.</p>
 
             <div className="examples-grid">
+              <a className="example-card" href="/demo/playground.html">
+                <TbSandbox className="example-card-icon" />
+                <div className="example-card-title">Browser Playground</div>
+                <p className="example-card-desc">
+                  Edit a <code>.html.ts.quilt</code> source and watch Quilt&rsquo;s
+                  parser and expander &mdash; compiled to WebAssembly &mdash; turn it
+                  into TypeScript and render the result, entirely in the browser.
+                </p>
+                <span className="example-card-link">Open the playground &rarr;</span>
+              </a>
               <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
                 <TbCode className="example-card-icon" />
                 <div className="example-card-title">Examples</div>
