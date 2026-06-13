@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
-import { SiRust, SiPython, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
-import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox } from 'react-icons/tb';
+import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
+import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbHighlight, TbBrandVscode } from 'react-icons/tb';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -189,15 +189,6 @@ export default function Home(): React.ReactElement {
                 </p>
                 <span className="example-card-link">Open the playground &rarr;</span>
               </a>
-              <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
-                <TbCode className="example-card-icon" />
-                <div className="example-card-title">Examples</div>
-                <p className="example-card-desc">
-                  Annotated <code>.quilt</code> files covering the core operators,
-                  cross-language generation, and lifted values.
-                </p>
-                <span className="example-card-link">View on GitHub &rarr;</span>
-              </a>
               <div className="example-card">
                 <TbRobot className="example-card-icon" />
                 <div className="example-card-title">Nanobots</div>
@@ -207,9 +198,18 @@ export default function Home(): React.ReactElement {
                 </p>
                 <div className="example-card-links">
                   <a href="https://asvarga.github.io/site/nanobots/" target="_blank" rel="noopener" className="example-card-link">Live Demo &rarr;</a>
-                  <a href="https://github.com/QuiltLang/nanobots" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">GitHub &rarr;</a>
+                  <a href="https://github.com/QuiltLang/nanobots/blob/main/nanobots-codegen/src/wgsl.wgsl.rs.quilt" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">Source &rarr;</a>
                 </div>
               </div>
+              <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
+                <TbCode className="example-card-icon" />
+                <div className="example-card-title">Examples</div>
+                <p className="example-card-desc">
+                  Annotated <code>.quilt</code> files covering the core operators,
+                  cross-language generation, and lifted values.
+                </p>
+                <span className="example-card-link">Source &rarr;</span>
+              </a>
             </div>
           </div>
         </div>
@@ -235,38 +235,44 @@ export default function Home(): React.ReactElement {
               <tbody>
                 <tr>
                   <td className="lang-name"><SiRust className="lang-icon" style={{color:'#CE422B'}} />Rust</td>
-                  <td className="lang-yes">✓</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://crates.io/crates/quiltlang" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-rust" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Primary host. Full <code>MetaLanguage</code> support. Generated from <code>mk_meta.rs.quilt</code> by bootstrap.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiPython className="lang-icon" style={{color:'#FFD43B'}} />Python</td>
-                  <td className="lang-yes">✓</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://pypi.org/project/quilt-python/" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-python" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Second host language. PyO3 runtime module provides the same <code>QTerm</code> API in Python.</td>
+                </tr>
+                <tr>
+                  <td className="lang-name"><SiTypescript className="lang-icon" style={{color:'#3178C6'}} />TypeScript</td>
+                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-typescript" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-desc">Meta language behind the browser playground. The expander rewrites <code>.ts.quilt</code> quotes into plain TypeScript that calls the <code>quilt-wasm</code> runtime.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiHtml5 className="lang-icon" style={{color:'#E34F26'}} />HTML</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-html" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Quote and splice HTML document fragments for code-generated web reports and templates.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiWebgpu className="lang-icon" style={{color:'#B48AE0'}} />WGSL</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-wgsl" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Generate GPU shader code at build time. Lift Rust values directly into WGSL literal syntax.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiZsh className="lang-icon" style={{color:'#89E051'}} />Zsh</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-zsh" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Generate shell scripts with correct quoting. Rust strings lift into properly escaped zsh words.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiGnubash className="lang-icon" style={{color:'#4EAA25'}} />Bash</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-bash" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Same as Zsh &mdash; a separate target with Bash-specific quoting semantics.</td>
                 </tr>
                 <tr className="lang-more">
@@ -277,6 +283,57 @@ export default function Home(): React.ReactElement {
           </div>
           </div>
         </section>
+
+        {/* ── Tooling ── */}
+        <div className="tooling-band">
+          <div className="tooling-inner">
+            <h2 className="section-title">Tooling</h2>
+            <p className="section-sub">Real IDE features for polyglot <code>.quilt</code> files.</p>
+
+            <div className="examples-grid">
+              <div className="example-card">
+                <TbServer2 className="example-card-icon" />
+                <div className="example-card-title">quilt-lsp &mdash; the language server</div>
+                <p className="example-card-desc">
+                  A multiplexing server: it parses a <code>.quilt</code> file&rsquo;s structure,
+                  projects each embedded language into its own virtual document, and proxies to the
+                  real downstream server &mdash; <code>rust-analyzer</code> for Rust,{' '}
+                  <code>pyright</code> for Python &mdash; remapping positions both ways. You get
+                  hover, go-to-definition, completion, and diagnostics from the tools you already
+                  trust, right inside the quilt.
+                </p>
+                <div className="example-card-links">
+                  <a href="https://github.com/QuiltLang/quilt/tree/main/quilt-lsp" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
+                </div>
+              </div>
+
+              <div className="example-card">
+                <TbHighlight className="example-card-icon" />
+                <div className="example-card-title">Polyglot highlighting</div>
+                <p className="example-card-desc">
+                  Semantic tokens cross language boundaries: code inside{' '}
+                  <span className="qo">↖</span>&hellip;<span className="qc">↗</span> quotes is highlighted
+                  by its own language&rsquo;s grammar, with an in-process tree-sitter fallback so even
+                  servers that emit no tokens (like pyright) still get colour. Quilt regions fold, and
+                  structure errors surface as you type.
+                </p>
+              </div>
+
+              <div className="example-card example-card-soon">
+                <TbBrandVscode className="example-card-icon" />
+                <div className="example-card-title">VS Code extension</div>
+                <p className="example-card-desc">
+                  A one-click extension bundling the language server and the <code>.quilt</code>{' '}
+                  grammar for syntax highlighting &mdash; so the whole experience works out of the box.
+                </p>
+                <div className="example-card-links">
+                  <a href="https://github.com/QuiltLang/quilt/tree/main/tools/quilt" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
+                  <span className="example-card-badge">Coming soon</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* ── Tenets ── */}
         <section className="tenets">

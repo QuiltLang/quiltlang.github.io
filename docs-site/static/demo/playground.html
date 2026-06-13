@@ -4,27 +4,69 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quilt Playground — expand TypeScript→HTML in the browser</title>
+  <link rel="shortcut icon" href="/img/quilt.svg">
   <style>
-    body { font-family: system-ui, sans-serif; margin: 1.5rem auto; max-width: 70rem; padding: 0 1rem; color: #222; }
-    h1 { font-size: 1.3rem; }
-    .lede { color: #555; max-width: 50rem; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-    .pane { display: flex; flex-direction: column; min-height: 0; }
-    .pane > h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: #666; margin: 0 0 .3rem; }
-    textarea, pre, iframe { border: 1px solid #ccc; border-radius: 8px; }
-    textarea, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 1.45; padding: .6rem .7rem; }
-    textarea { height: 22rem; resize: vertical; white-space: pre; tab-size: 2; }
-    pre { height: 22rem; margin: 0; overflow: auto; background: #fafafa; white-space: pre-wrap; word-break: break-word; }
-    iframe { width: 100%; height: 16rem; background: #fff; }
-    .bar { display: flex; align-items: center; gap: .8rem; margin: 1rem 0 .2rem; }
-    button { font: inherit; padding: .45rem 1rem; border-radius: 8px; border: 1px solid #0969da; background: #0969da; color: #fff; cursor: pointer; }
-    button:disabled { opacity: .5; cursor: default; }
-    .status { color: #666; font-size: .9rem; }
-    .status.err { color: #b00; white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 12px; }
-    code { background: #f0f0f0; padding: .1rem .3rem; border-radius: 4px; }
-    footer { color: #888; font-size: .85rem; margin-top: 1.5rem; }
-    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { background: #1a1a1a; display: flex; flex-direction: column; height: 100vh;
+           overflow: hidden; color: #ccc; font-family: monospace; }
+
+    /* ── Top bar ── */
+    #topbar { display: flex; align-items: center; gap: 12px; padding: 6px 12px;
+              background: #222; border-bottom: 1px solid #333; font-size: 12px; flex-wrap: nowrap; }
+    #topbar #brand { display: flex; align-items: center; flex-shrink: 0; }
+    #topbar #brand img { height: 20px; width: 20px; display: block; }
+    #topbar #title { color: #eee; font-weight: bold; white-space: nowrap; }
+    #topbar #tagline { color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #topbar code { color: #8fb7ff; }
+    #topbar #spacer { flex: 1; }
+    #topbar a { color: #8af; text-decoration: none; white-space: nowrap; }
+    #topbar a:hover { text-decoration: underline; }
+    @media (max-width: 720px) { #topbar #tagline { display: none; } }
+
+    /* ── Split layout ── */
+    #layout { display: flex; flex: 1; overflow: hidden; }
+    #preview-pane { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    #preview-area { flex: 1; min-height: 0; background: #fff; }
+    #preview { width: 100%; height: 100%; border: 0; background: #fff; display: block; }
+
+    #resize-handle { width: 5px; cursor: col-resize; background: #2a2a2a; flex-shrink: 0;
+                     border-left: 1px solid #333; border-right: 1px solid #333; }
+    #resize-handle:hover, #resize-handle.dragging { background: #555; }
+
+    #editor-pane { width: 50%; min-width: 220px; display: flex; flex-direction: column; }
+    #cm-editor { flex: 1; overflow: auto; font-size: 13px; min-height: 0; }
+    #expanded-editor { display: none; flex: 1; overflow: auto; font-size: 13px; min-height: 0; }
+    .cm-editor { height: 100%; }
+    .cm-scroller { overflow: auto; }
+
+    /* ── Compile bar ── */
+    #compile-bar { padding: 4px 8px; background: #222; border-top: 1px solid #333; font-size: 12px;
+                   display: flex; align-items: center; gap: 6px; }
+    #compile-status { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #compile-status.ok   { color: #8f8; }
+    #compile-status.err  { color: #f88; }
+    #compile-status.busy { color: #fa8; }
+
+    button { background: #333; color: #ccc; border: 1px solid #555; border-radius: 4px;
+             padding: 3px 10px; font-family: monospace; font-size: 12px; cursor: pointer; }
+    button:hover { background: #444; }
+    button:disabled { opacity: 0.4; cursor: default; }
+    button.active { background: #2a4a2a; border-color: #4a8; color: #8f8; }
+
+    @media (orientation: portrait) {
+      #layout { flex-direction: column; }
+      #preview-pane { flex: none; height: 45vh; }
+      #editor-pane { width: 100% !important; flex: 1; min-width: 0; }
+      #resize-handle { width: auto; height: 5px; cursor: row-resize;
+                       border-left: none; border-right: none;
+                       border-top: 1px solid #333; border-bottom: 1px solid #333; }
+    }
   </style>
+
+  <!-- The CodeMirror 6 bundle (global `cm6`), same editor the nanobots demo uses. -->
+  <script src="./codemirror.min.js"></script>
+
   <!-- Resolve the bare `quilt-wasm` specifier — used both here and inside the
        expanded program when it is imported — to the runtime built with
        `wasm-pack build quilt-wasm --target web`. -->
@@ -33,44 +75,32 @@
   </script>
 </head>
 <body>
-  <h1>Quilt Playground: expansion <em>in</em> the browser</h1>
-  <p class="lede">
-    The whole pipeline runs client-side, no server. Editing the
-    <code>.html.ts.quilt</code> source and pressing <strong>Expand &amp; run</strong>
-    sends it through the Quilt parser + expander (compiled to WebAssembly,
-    driven by a tiny WASI shim), producing plain TypeScript whose
-    <code>html↖…↗</code> quotes have become <code>quilt-wasm</code> builder
-    calls. That program is then imported and run against the same runtime, and
-    its HTML is rendered below. (The <em>run</em> step needs the expansion to be
-    valid JS, i.e. annotation-free.)
-  </p>
-
-  <div class="bar">
-    <button id="run" disabled>Expand &amp; run</button>
-    <span id="status" class="status">loading WebAssembly…</span>
-  </div>
-
-  <div class="grid">
-    <div class="pane">
-      <h2>source — cards.html.ts.quilt</h2>
-      <textarea id="src" spellcheck="false"></textarea>
-    </div>
-    <div class="pane">
-      <h2>expanded TypeScript (from the wasm expander)</h2>
-      <pre id="expanded"></pre>
-    </div>
-  </div>
-
-  <div class="pane" style="margin-top:1rem">
-    <h2>rendered HTML (from running the expansion)</h2>
-    <iframe id="preview" sandbox="allow-same-origin" title="rendered output"></iframe>
-  </div>
-
-  <footer>
-    <a href="/">← quiltlang.github.io</a> ·
-    <a href="pathname:///demo/">ahead-of-time demo</a> ·
+  <div id="topbar">
+    <a id="brand" href="/" title="quiltlang.github.io"><img src="/img/quilt.svg" alt="Quilt" /></a>
+    <span id="title">Quilt Playground</span>
+    <span id="tagline">expand <code>.html.ts.quilt</code> &rarr; TypeScript &rarr; HTML, entirely in the browser</span>
+    <span id="spacer"></span>
     <a href="https://github.com/QuiltLang/quilt/tree/main/examples/web">source</a>
-  </footer>
+  </div>
+
+  <div id="layout">
+    <div id="preview-pane">
+      <div id="preview-area">
+        <iframe id="preview" sandbox="allow-same-origin" title="rendered output"></iframe>
+      </div>
+    </div>
+    <div id="resize-handle"></div>
+    <div id="editor-pane">
+      <div id="cm-editor"></div>
+      <div id="expanded-editor"></div>
+      <div id="compile-bar">
+        <span id="compile-status">Initialising…</span>
+        <button id="btn-run" title="Expand &amp; run the source">Run</button>
+        <button id="btn-ts" title="Show the expanded TypeScript">TS</button>
+        <button id="btn-auto" class="active" title="Auto expand &amp; run on edit">Auto</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="./playground.js"></script>
 </body>

@@ -540,6 +540,31 @@
 #landing .example-card-link-muted { color: var(--text-muted); }
 #landing .example-card-link-muted:hover { color: var(--text); }
 
+/* ── Tooling ── */
+#landing .tooling-band {
+  border-bottom: 1px solid var(--border);
+}
+#landing .tooling-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+#landing .example-card-soon {
+  border-style: dashed;
+}
+#landing .example-card-soon:hover { border-color: var(--border); }
+#landing .example-card-badge {
+  align-self: flex-start;
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
 /* ── Footer ── */
 #landing footer {
   background: var(--surface);
@@ -562,3 +587,35 @@
   transition: color 0.15s;
 }
 #landing .footer-links a:hover { color: var(--text); }
+
+/* === quilt site additions (managed) === */
+/* ── Tooling ── */
+#landing .tooling-band {
+  border-bottom: 1px solid var(--border);
+}
+#landing .tooling-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+#landing .example-card-soon {
+  border-style: dashed;
+}
+#landing .example-card-soon:hover { border-color: var(--border); }
+#landing .example-card-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
+
+/* ── Section background alternation ──
+   Tooling (bg) sits between Languages (surface) and Tenets, so flip Tenets to
+   surface and the footer to bg to keep the bands alternating. */
+#landing .tenets { background: var(--surface); }
+#landing footer  { background: var(--bg); }
+/* === end quilt site additions === */
