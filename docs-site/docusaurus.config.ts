@@ -65,12 +65,18 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          // Static demo under static/demo/ (served at /demo/), not a
-          // Docusaurus route. The `pathname://` prefix links straight to the
-          // file, bypassing the SPA router and broken-link checker.
+          // Static demos under static/demo/ (served at /demo/), not Docusaurus
+          // routes. The `pathname://` prefix links straight to the file,
+          // bypassing the SPA router and broken-link checker.
           href: 'pathname:///demo/',
           target: '_self',
           label: 'Demo',
+          position: 'left',
+        },
+        {
+          href: 'pathname:///demo/playground.html',
+          target: '_self',
+          label: 'Playground',
           position: 'left',
         },
         {
