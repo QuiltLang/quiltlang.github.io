@@ -247,7 +247,7 @@ export default function Home(): React.ReactElement {
                 </tr>
                 <tr>
                   <td className="lang-name"><SiTypescript className="lang-icon" style={{color:'#3178C6'}} />TypeScript</td>
-                  <td className="lang-yes">✓</td>
+                  <td className="lang-yes"><a href="https://www.npmjs.com/package/quilt-wasm" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-typescript" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Meta language behind the browser playground. The expander rewrites <code>.ts.quilt</code> quotes into plain TypeScript that calls the <code>quilt-wasm</code> runtime.</td>
                 </tr>
