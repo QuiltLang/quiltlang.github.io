@@ -376,7 +376,9 @@
 #landing .lang-table th:nth-child(2),
 #landing .lang-table td:nth-child(2),
 #landing .lang-table th:nth-child(3),
-#landing .lang-table td:nth-child(3) { width: 1%; white-space: nowrap; }
+#landing .lang-table td:nth-child(3),
+#landing .lang-table th:nth-child(4),
+#landing .lang-table td:nth-child(4) { width: 1%; white-space: nowrap; }
 
 #landing .lang-table th:last-child,
 #landing .lang-table td:last-child { width: 100%; }
