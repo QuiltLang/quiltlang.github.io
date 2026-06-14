@@ -14,8 +14,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     /* Override theme.css's preview `body` rule (it styles the rendered cards,
-       not this app) so the chrome stays full-bleed and dark. */
-    body { background: var(--quilt-bg); margin: 0; display: flex; flex-direction: column;
+       not this app) so the chrome stays full-bleed and dark — including its
+       margin/padding, or the app would inherit the preview's 1.5rem inset. */
+    body { background: var(--quilt-bg); margin: 0; padding: 0; display: flex; flex-direction: column;
            height: 100vh; overflow: hidden; color: var(--quilt-text); font-family: monospace; }
 
     /* ── Top bar ── */
