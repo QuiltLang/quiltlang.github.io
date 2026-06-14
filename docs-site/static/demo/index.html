@@ -7,13 +7,17 @@
   <!-- Shared site theme (brand palette + the .cards/.card styles used below). -->
   <link rel="stylesheet" href="./theme.css">
   <style>
-    /* Page chrome on top of the shared theme. */
+    /* Page chrome on top of the shared (dark) theme. */
     body { max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
-    h1 { font-size: 1.4rem; }
-    .lede { color: #555; }
+    h1 { font-size: 1.4rem; color: var(--quilt-heading); }
+    .lede { color: var(--quilt-muted); }
     .cards { margin-top: 1.5rem; }
-    footer { color: #888; font-size: .85rem; margin-top: 2rem; }
-    code { background: #f4f4f4; padding: .1rem .3rem; border-radius: 4px; }
+    footer { color: var(--quilt-muted); font-size: .85rem; margin-top: 2rem;
+             border-top: 1px solid var(--quilt-border); padding-top: 1rem; }
+    a { color: var(--quilt-orange-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: var(--quilt-surface-2); color: var(--tok-type);
+           border: 1px solid var(--quilt-border); padding: .1rem .3rem; border-radius: 4px; }
   </style>
   <!-- Resolve the bare `quilt` specifier (used by app.js) to the runtime
        built with `wasm-pack build quilt-wasm --target web`. No bundler.

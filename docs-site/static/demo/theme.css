@@ -11,6 +11,7 @@
   /* GitHub-dark surfaces (the site's dark mode) */
   --quilt-bg:       #0d1117;
   --quilt-surface:  #161b22;
+  --quilt-surface-2:#1c2128;  /* card surface (matches the site's landing cards) */
   --quilt-elevated: #21262d;  /* buttons / raised controls (GitHub-dark) */
   --quilt-border:   #30363d;
   --quilt-text:     #c9d1d9;
@@ -31,23 +32,32 @@
 }
 
 /* ── Rendered HTML output (the cards the demos generate) ─────────────────── */
+/* Themed like the site's dark landing page so a generated page looks on-brand
+ * rather than like a plain white document — surface-2 cards on the GitHub-dark
+ * background, with the brand orange picked up on hover (as on the homepage). */
 body {
-  font-family: system-ui, sans-serif;
-  margin: 1rem;
-  color: #222;
-  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  padding: 1.5rem;
+  color: var(--quilt-text);
+  background: var(--quilt-bg);
+  line-height: 1.6;
 }
-.cards { display: grid; gap: 1rem; }
+.cards { display: grid; gap: 1rem; max-width: 760px; margin: 0 auto; }
 .card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+  background: var(--quilt-surface-2);
+  border: 1px solid var(--quilt-border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color .15s;
 }
-.card h2 { font-size: 1.05rem; margin: 0 0 .4rem; color: #1a1a1a; }
-.card p  { margin: 0; color: #444; }
-.card ul { margin: .3rem 0 0; padding-left: 1.2rem; color: #444; }
+.card:hover { border-color: var(--quilt-orange); }
+.card h2 { font-size: 1.05rem; margin: 0 0 .4rem; color: var(--quilt-heading); }
+.card p  { margin: 0; color: var(--quilt-muted); }
+.card ul { margin: .3rem 0 0; padding-left: 1.2rem; color: var(--quilt-muted); }
 .card li { margin: .15rem 0; }
+.card a  { color: var(--quilt-orange-2); text-decoration: none; }
+.card a:hover { text-decoration: underline; }
 
 /* ── Syntax highlighting tokens (used by the playground editor overlay) ──── */
 .tok-comment { color: var(--tok-comment); font-style: italic; }
