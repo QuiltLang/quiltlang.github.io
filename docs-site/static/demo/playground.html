@@ -54,6 +54,16 @@
     button:disabled { opacity: 0.4; cursor: default; }
     button.active { background: #2a4a2a; border-color: #4a8; color: #8f8; }
 
+    /* Arrow-glyph inserters (the glyphs can't be typed). Colours match the
+       site's per-glyph syntax palette. */
+    #glyphs { display: flex; gap: 3px; }
+    #glyphs button { padding: 3px 7px; font-weight: 700; }
+    #glyphs .g-quote   { color: #f97316; }
+    #glyphs .g-unquote { color: #60a5fa; }
+    #glyphs .g-lift    { color: #facc15; }
+    #glyphs .g-reduce  { color: #c084fc; }
+    #glyphs .g-emit    { color: #34d399; }
+
     @media (orientation: portrait) {
       #layout { flex-direction: column; }
       #preview-pane { flex: none; height: 45vh; }
@@ -96,7 +106,14 @@
       <div id="expanded-editor"></div>
       <div id="compile-bar">
         <span id="compile-status">Initialising…</span>
-        <button id="btn-run" title="Expand &amp; run the source">Run</button>
+        <span id="glyphs">
+          <button type="button" class="g-quote"   data-wrap="↖↗" title="quote ↖…↗  (⌘/Ctrl+2 then up,left / up,right)">↖↗</button>
+          <button type="button" class="g-unquote" data-wrap="↙↘" title="unquote ↙…↘  (⌘/Ctrl+2 then down,left / down,right)">↙↘</button>
+          <button type="button" class="g-lift"    data-ins="↑"   title="lift ↑  (⌘/Ctrl+1 then up)">↑</button>
+          <button type="button" class="g-reduce"  data-ins="↓"   title="reduce ↓  (⌘/Ctrl+1 then down)">↓</button>
+          <button type="button" class="g-emit"    data-ins="←"   title="emit ←  (⌘/Ctrl+1 then left)">←</button>
+        </span>
+        <button id="btn-run" title="Expand &amp; run the source (⌘/Ctrl+Enter)">Run</button>
         <button id="btn-ts" title="Show the expanded TypeScript">TS</button>
         <button id="btn-auto" class="active" title="Auto expand &amp; run on edit">Auto</button>
       </div>
