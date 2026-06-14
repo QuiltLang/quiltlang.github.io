@@ -240,21 +240,21 @@ export default function Home(): React.ReactElement {
                   <td className="lang-name"><SiRust className="lang-icon" style={{color:'#CE422B'}} />Rust</td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/rust/meta.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/rust/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://crates.io/crates/quiltlang" target="_blank" rel="noopener">crates.io</a></td>
+                  <td className="lang-yes"><a href="https://crates.io/crates/quiltlang" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Primary host. Full <code>MetaLanguage</code> support. Generated from <code>mk_meta.rs.quilt</code> by bootstrap.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiPython className="lang-icon" style={{color:'#FFD43B'}} />Python</td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/python/meta.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/python/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://pypi.org/project/quilt-python/" target="_blank" rel="noopener">PyPI</a></td>
+                  <td className="lang-yes"><a href="https://pypi.org/project/quilt-python/" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Second host language. PyO3 runtime module provides the same <code>QTerm</code> API in Python.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiTypescript className="lang-icon" style={{color:'#3178C6'}} />TypeScript</td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/typescript/meta.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/typescript/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://www.npmjs.com/package/quilt-wasm" target="_blank" rel="noopener">npm</a></td>
+                  <td className="lang-yes"><a href="https://www.npmjs.com/package/quilt-wasm" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-desc">Meta language behind the browser playground. The expander rewrites <code>.ts.quilt</code> quotes into plain TypeScript that calls the <code>quilt-wasm</code> runtime.</td>
                 </tr>
                 <tr>
