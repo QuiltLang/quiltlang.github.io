@@ -5,22 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quilt Playground — expand TypeScript→HTML in the browser</title>
   <link rel="shortcut icon" href="/img/quilt.svg">
+  <!-- Shared site theme: pulls in the GitHub-dark brand palette + per-glyph
+       colours as CSS variables, so the chrome below matches the rest of the
+       site. (Its preview `body`/`.card` rules don't apply here — the chrome
+       `body` rule overrides them, and the cards only exist in the iframe.) -->
+  <link rel="stylesheet" href="./theme.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { background: #1a1a1a; display: flex; flex-direction: column; height: 100vh;
-           overflow: hidden; color: #ccc; font-family: monospace; }
+    /* Override theme.css's preview `body` rule (it styles the rendered cards,
+       not this app) so the chrome stays full-bleed and dark. */
+    body { background: var(--quilt-bg); margin: 0; display: flex; flex-direction: column;
+           height: 100vh; overflow: hidden; color: var(--quilt-text); font-family: monospace; }
 
     /* ── Top bar ── */
     #topbar { display: flex; align-items: center; gap: 12px; padding: 6px 12px;
-              background: #222; border-bottom: 1px solid #333; font-size: 12px; flex-wrap: nowrap; }
+              background: var(--quilt-surface); border-bottom: 1px solid var(--quilt-border);
+              font-size: 12px; flex-wrap: nowrap; }
     #topbar #brand { display: flex; align-items: center; flex-shrink: 0; }
     #topbar #brand img { height: 20px; width: 20px; display: block; }
-    #topbar #title { color: #eee; font-weight: bold; white-space: nowrap; }
-    #topbar #tagline { color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    #topbar code { color: #8fb7ff; }
+    #topbar #title { color: var(--quilt-heading); font-weight: bold; white-space: nowrap; }
+    #topbar #tagline { color: var(--quilt-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #topbar code { color: var(--tok-type); }
     #topbar #spacer { flex: 1; }
-    #topbar a { color: #8af; text-decoration: none; white-space: nowrap; }
+    #topbar a { color: var(--quilt-orange-2); text-decoration: none; white-space: nowrap; }
     #topbar a:hover { text-decoration: underline; }
     @media (max-width: 720px) { #topbar #tagline { display: none; } }
 
@@ -30,9 +38,9 @@
     #preview-area { flex: 1; min-height: 0; background: #fff; }
     #preview { width: 100%; height: 100%; border: 0; background: #fff; display: block; }
 
-    #resize-handle { width: 5px; cursor: col-resize; background: #2a2a2a; flex-shrink: 0;
-                     border-left: 1px solid #333; border-right: 1px solid #333; }
-    #resize-handle:hover, #resize-handle.dragging { background: #555; }
+    #resize-handle { width: 5px; cursor: col-resize; background: var(--quilt-elevated); flex-shrink: 0;
+                     border-left: 1px solid var(--quilt-border); border-right: 1px solid var(--quilt-border); }
+    #resize-handle:hover, #resize-handle.dragging { background: var(--quilt-orange); }
 
     #editor-pane { width: 50%; min-width: 220px; display: flex; flex-direction: column; }
     #cm-editor { flex: 1; overflow: auto; font-size: 13px; min-height: 0; }
@@ -41,16 +49,16 @@
     .cm-scroller { overflow: auto; }
 
     /* ── Compile bar ── */
-    #compile-bar { padding: 4px 8px; background: #222; border-top: 1px solid #333; font-size: 12px;
-                   display: flex; align-items: center; gap: 6px; }
+    #compile-bar { padding: 4px 8px; background: var(--quilt-surface); border-top: 1px solid var(--quilt-border);
+                   font-size: 12px; display: flex; align-items: center; gap: 6px; }
     #compile-status { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     #compile-status.ok   { color: #8f8; }
     #compile-status.err  { color: #f88; }
     #compile-status.busy { color: #fa8; }
 
-    button { background: #333; color: #ccc; border: 1px solid #555; border-radius: 4px;
-             padding: 3px 10px; font-family: monospace; font-size: 12px; cursor: pointer; }
-    button:hover { background: #444; }
+    button { background: var(--quilt-elevated); color: var(--quilt-text); border: 1px solid var(--quilt-border);
+             border-radius: 4px; padding: 3px 10px; font-family: monospace; font-size: 12px; cursor: pointer; }
+    button:hover { background: var(--quilt-border); }
     button:disabled { opacity: 0.4; cursor: default; }
     button.active { background: #2a4a2a; border-color: #4a8; color: #8f8; }
 
@@ -58,11 +66,11 @@
        site's per-glyph syntax palette. */
     #glyphs { display: flex; gap: 3px; }
     #glyphs button { padding: 3px 7px; font-weight: 700; }
-    #glyphs .g-quote   { color: #f97316; }
-    #glyphs .g-unquote { color: #60a5fa; }
-    #glyphs .g-lift    { color: #facc15; }
-    #glyphs .g-reduce  { color: #c084fc; }
-    #glyphs .g-emit    { color: #34d399; }
+    #glyphs .g-quote   { color: var(--glyph-quote); }
+    #glyphs .g-unquote { color: var(--glyph-unquote); }
+    #glyphs .g-lift    { color: var(--glyph-lift); }
+    #glyphs .g-reduce  { color: var(--glyph-reduce); }
+    #glyphs .g-emit    { color: var(--glyph-emit); }
 
     @media (orientation: portrait) {
       #layout { flex-direction: column; }
@@ -70,7 +78,7 @@
       #editor-pane { width: 100% !important; flex: 1; min-width: 0; }
       #resize-handle { width: auto; height: 5px; cursor: row-resize;
                        border-left: none; border-right: none;
-                       border-top: 1px solid #333; border-bottom: 1px solid #333; }
+                       border-top: 1px solid var(--quilt-border); border-bottom: 1px solid var(--quilt-border); }
     }
   </style>
 

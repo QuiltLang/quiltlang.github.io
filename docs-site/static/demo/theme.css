@@ -11,6 +11,7 @@
   /* GitHub-dark surfaces (the site's dark mode) */
   --quilt-bg:       #0d1117;
   --quilt-surface:  #161b22;
+  --quilt-elevated: #21262d;  /* buttons / raised controls (GitHub-dark) */
   --quilt-border:   #30363d;
   --quilt-text:     #c9d1d9;
   --quilt-heading:  #f0f6fc;
