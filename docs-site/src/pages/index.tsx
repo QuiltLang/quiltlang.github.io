@@ -343,38 +343,39 @@ export default function Home(): React.ReactElement {
 
           <div className="tenets-grid">
             <div className="tenet-card">
-              <TbStack2 className="tenet-icon" />
+              <TbWorld className="tenet-icon" />
               <div className="tenet-n">Tenet 01</div>
-              <div className="tenet-title">Code should be generic over representation.</div>
+              <div className="tenet-title">Meta-programming is everywhere.</div>
               <p className="tenet-desc">
-                Every language already has a textual syntax, so a metaprogramming system
-                that operates only on terms adds surface area instead of reusing what exists.
-                There is no single right representation &mdash; strings, token trees, or terms;
-                arcs, hash-consing, or plain references; mutable or immutable; untyped or typed.
-                Metaprograms shouldn&rsquo;t be married to any one of these choices.
+                Macro systems, web development frameworks, build scripts &mdash; many tasks in
+                software development and maintenance can be considered meta-programming.
+                These tasks are often awkward and error-prone because they stray from the
+                tools and guarantees of normal languages. We embrace meta-programming as a
+                necessary evil and build tools to address these pain points.
+              </p>
+            </div>
+            <div className="tenet-card">
+              <TbStack2 className="tenet-icon" />
+              <div className="tenet-n">Tenet 02</div>
+              <div className="tenet-title">Meta-programming should be representation-agnostic.</div>
+              <p className="tenet-desc">
+                We don&rsquo;t write programs by constructing syntax trees, so we shouldn&rsquo;t
+                have to do so when writing meta-programs. Languages already expose textual syntax
+                as their primary interface, so we avoid expanding their surface areas with
+                tree-like representations &mdash; letting each meta-language implementation freely
+                choose the data structures used to represent code behind the scenes.
               </p>
             </div>
             <div className="tenet-card">
               <TbBraces className="tenet-icon" />
-              <div className="tenet-n">Tenet 02</div>
-              <div className="tenet-title">A language shouldn&rsquo;t need a second language for metaprogramming.</div>
-              <p className="tenet-desc">
-                &ldquo;Meta&rdquo; is as universal a concept as arithmetic or functions,
-                yet most languages bolt on an ad-hoc macro layer that sacrifices the host
-                language&rsquo;s tooling and guarantees.
-                Bad metaprogramming is everywhere; it deserves to be fixed once,
-                with meta-meta-programming.
-              </p>
-            </div>
-            <div className="tenet-card">
-              <TbWorld className="tenet-icon" />
               <div className="tenet-n">Tenet 03</div>
-              <div className="tenet-title">Support all languages.</div>
+              <div className="tenet-title">Meta-programming should be language-agnostic.</div>
               <p className="tenet-desc">
-                When one system spans many languages, the right tool for the job is always
-                available. Quilt supports Rust and Python as host languages today; adding a
-                new target language requires only a tree-sitter grammar and a thin{' '}
-                <code style={{fontSize:'.8rem'}}>Language</code> impl.
+                Languages shouldn&rsquo;t force a single meta-language upon users, making them
+                learn a whole new language for such purposes. Users should be able to choose
+                whichever meta-language best fits the job at hand, as we do when choosing a
+                normal language or framework. Standardizing the syntax for stitching languages
+                together can make it easier to switch between languages.
               </p>
             </div>
           </div>
