@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
 import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
-import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbHighlight, TbBrandVscode } from 'react-icons/tb';
+import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode } from 'react-icons/tb';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -220,6 +220,8 @@ export default function Home(): React.ReactElement {
           <h2 className="section-title">Supported Languages</h2>
           <p className="section-sub">
             Languages with Meta support can drive generation; Object languages can be quoted and spliced into.
+            The Meta and Object checkmarks link to each language&rsquo;s <code>MetaLanguage</code> and <code>Language</code> implementations;
+            Bindings link to the published runtime package.
           </p>
 
           <div className="lang-table-wrap">
@@ -229,54 +231,62 @@ export default function Home(): React.ReactElement {
                   <th>Language</th>
                   <th>Meta</th>
                   <th>Object</th>
+                  <th>Bindings</th>
                   <th>Notes</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="lang-name"><SiRust className="lang-icon" style={{color:'#CE422B'}} />Rust</td>
-                  <td className="lang-yes"><a href="https://crates.io/crates/quiltlang" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-rust" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/rust/meta.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/rust/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://crates.io/crates/quiltlang" target="_blank" rel="noopener">crates.io</a></td>
                   <td className="lang-desc">Primary host. Full <code>MetaLanguage</code> support. Generated from <code>mk_meta.rs.quilt</code> by bootstrap.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiPython className="lang-icon" style={{color:'#FFD43B'}} />Python</td>
-                  <td className="lang-yes"><a href="https://pypi.org/project/quilt-python/" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-python" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/python/meta.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/python/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://pypi.org/project/quilt-python/" target="_blank" rel="noopener">PyPI</a></td>
                   <td className="lang-desc">Second host language. PyO3 runtime module provides the same <code>QTerm</code> API in Python.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiTypescript className="lang-icon" style={{color:'#3178C6'}} />TypeScript</td>
-                  <td className="lang-yes"><a href="https://www.npmjs.com/package/quilt-wasm" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-typescript" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/typescript/meta.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/typescript/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://www.npmjs.com/package/quilt-wasm" target="_blank" rel="noopener">npm</a></td>
                   <td className="lang-desc">Meta language behind the browser playground. The expander rewrites <code>.ts.quilt</code> quotes into plain TypeScript that calls the <code>quilt-wasm</code> runtime.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiHtml5 className="lang-icon" style={{color:'#E34F26'}} />HTML</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-html" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/html/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-no">&mdash;</td>
                   <td className="lang-desc">Quote and splice HTML document fragments for code-generated web reports and templates.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiWebgpu className="lang-icon" style={{color:'#B48AE0'}} />WGSL</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-wgsl" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/wgsl/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-no">&mdash;</td>
                   <td className="lang-desc">Generate GPU shader code at build time. Lift Rust values directly into WGSL literal syntax.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiZsh className="lang-icon" style={{color:'#89E051'}} />Zsh</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-zsh" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/zsh/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-no">&mdash;</td>
                   <td className="lang-desc">Generate shell scripts with correct quoting. Rust strings lift into properly escaped zsh words.</td>
                 </tr>
                 <tr>
                   <td className="lang-name"><SiGnubash className="lang-icon" style={{color:'#4EAA25'}} />Bash</td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/tree-sitter-bash" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/bash/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-no">&mdash;</td>
                   <td className="lang-desc">Same as Zsh &mdash; a separate target with Bash-specific quoting semantics.</td>
                 </tr>
                 <tr className="lang-more">
-                  <td colSpan={4} className="lang-more-cell">More languages coming soon&hellip;</td>
+                  <td colSpan={5} className="lang-more-cell">More languages coming soon&hellip;</td>
                 </tr>
               </tbody>
             </table>
@@ -308,15 +318,19 @@ export default function Home(): React.ReactElement {
               </div>
 
               <div className="example-card">
-                <TbHighlight className="example-card-icon" />
-                <div className="example-card-title">Polyglot highlighting</div>
+                <TbKeyboard className="example-card-icon" />
+                <div className="example-card-title">Glyph keyboard shortcuts</div>
                 <p className="example-card-desc">
-                  Semantic tokens cross language boundaries: code inside{' '}
-                  <span className="qo">↖</span>&hellip;<span className="qc">↗</span> quotes is highlighted
-                  by its own language&rsquo;s grammar, with an in-process tree-sitter fallback so even
-                  servers that emit no tokens (like pyright) still get colour. Quilt regions fold, and
-                  structure errors surface as you type.
+                  Quilt&rsquo;s operators are Unicode glyphs &mdash; but you never have to hunt for them.
+                  The VS Code extension binds a chord shortcut to every operator, and a drop-in macOS{' '}
+                  <code>DefaultKeyBinding.dict</code> maps Command-plus-arrow chords to the glyphs
+                  system-wide, so <span className="qo">↖</span> <span className="qc">↗</span>{' '}
+                  <span className="uo">↙</span> <span className="uc">↘</span> <span className="li">↑</span>{' '}
+                  <span className="rd">↓</span> <span className="em">←</span> are as quick to type as any bracket.
                 </p>
+                <div className="example-card-links">
+                  <a href="https://github.com/QuiltLang/quilt/tree/main/tools" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
+                </div>
               </div>
 
               <div className="example-card">
