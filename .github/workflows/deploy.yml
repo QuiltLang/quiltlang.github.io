@@ -29,12 +29,60 @@ jobs:
           repository: QuiltLang/quilt
           path: quilt
 
+      - name: Checkout nanobots (demo source)
+        uses: actions/checkout@v4
+        with:
+          repository: QuiltLang/nanobots
+          path: nanobots
+
+      # nanobots' .rs.quilt sources are expanded by the quilt CLI; its expander
+      # output is version-specific, so pin it to the tag nanobots' Cargo.toml
+      # depends on (separate from the wiki checkout above, which tracks main).
+      - name: Checkout quilt (nanobots expander, pinned)
+        uses: actions/checkout@v4
+        with:
+          repository: QuiltLang/quilt
+          ref: v0.1.0-alpha
+          path: quilt-alpha
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
           cache-dependency-path: quiltlang.github.io/docs-site/package-lock.json
+
+      - name: Set up Rust
+        working-directory: nanobots
+        run: |
+          rustup toolchain install
+          rustup target add wasm32-unknown-unknown
+
+      - name: Cache cargo build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            nanobots
+            quilt-alpha
+
+      - name: Install wasm-pack
+        run: |
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      # Builds the self-contained WebGPU demo (expand → cm6 → wasm-pack → cargo
+      # release → generate index.html). QUILT points bin/expand at the pinned
+      # expander above instead of the main-tracking sibling checkout.
+      - name: Build nanobots demo
+        working-directory: nanobots
+        env:
+          QUILT: ${{ github.workspace }}/quilt-alpha/bin/quilt
+        run: bin/build
+
+      - name: Stage nanobots demo (served at /demo/nanobots/)
+        run: |
+          mkdir -p quiltlang.github.io/docs-site/static/demo/nanobots
+          cp nanobots/build/index.html quiltlang.github.io/docs-site/static/demo/nanobots/index.html
 
       - name: Install dependencies
         run: npm ci

@@ -8,6 +8,9 @@
 .docusaurus
 .cache-loader
 
+# nanobots demo — built from the nanobots repo by deploy.yml, not committed
+/static/demo/nanobots
+
 # Misc
 .DS_Store
 .env.local

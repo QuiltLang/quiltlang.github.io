@@ -80,6 +80,14 @@ const config: Config = {
           position: 'left',
         },
         {
+          // Self-contained WebGPU demo built from the nanobots repo by
+          // deploy.yml and staged into static/demo/nanobots/.
+          href: 'pathname:///demo/nanobots/',
+          target: '_self',
+          label: 'NanoBots',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/QuiltLang/quilt',
           label: 'GitHub',
           position: 'right',

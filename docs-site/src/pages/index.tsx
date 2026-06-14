@@ -197,7 +197,7 @@ export default function Home(): React.ReactElement {
                   GPU-friendly WGSL and HTML at build time.
                 </p>
                 <div className="example-card-links">
-                  <a href="https://asvarga.github.io/site/nanobots/" target="_blank" rel="noopener" className="example-card-link">Live Demo &rarr;</a>
+                  <a href="/demo/nanobots/" className="example-card-link">Live Demo &rarr;</a>
                   <a href="https://github.com/QuiltLang/nanobots/blob/main/nanobots-codegen/src/wgsl.wgsl.rs.quilt" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">Source &rarr;</a>
                 </div>
               </div>
