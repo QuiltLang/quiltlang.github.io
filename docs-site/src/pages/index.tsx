@@ -319,16 +319,18 @@ export default function Home(): React.ReactElement {
                 </p>
               </div>
 
-              <div className="example-card example-card-soon">
+              <div className="example-card">
                 <TbBrandVscode className="example-card-icon" />
                 <div className="example-card-title">VS Code extension</div>
                 <p className="example-card-desc">
-                  A one-click extension bundling the language server and the <code>.quilt</code>{' '}
+                  An extension bundling the language server and the <code>.quilt</code>{' '}
                   grammar for syntax highlighting &mdash; so the whole experience works out of the box.
+                  Grab the <code>.vsix</code> from the latest release and install it with{' '}
+                  <em>Extensions &rsaquo; &hellip; &rsaquo; Install from VSIX</em>.
                 </p>
                 <div className="example-card-links">
+                  <a href="https://github.com/QuiltLang/quilt/releases/latest" target="_blank" rel="noopener" className="example-card-link">Download .vsix &rarr;</a>
                   <a href="https://github.com/QuiltLang/quilt/tree/main/tools/quilt" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
-                  <span className="example-card-badge">Coming soon</span>
                 </div>
               </div>
             </div>
