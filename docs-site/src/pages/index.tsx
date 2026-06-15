@@ -339,11 +339,10 @@ export default function Home(): React.ReactElement {
                 <p className="example-card-desc">
                   An extension bundling the language server and the <code>.quilt</code>{' '}
                   grammar for syntax highlighting &mdash; so the whole experience works out of the box.
-                  Grab the <code>.vsix</code> from the latest release and install it with{' '}
-                  <em>Extensions &rsaquo; &hellip; &rsaquo; Install from VSIX</em>.
+                  Install it straight from the VS Code Marketplace.
                 </p>
                 <div className="example-card-links">
-                  <a href="https://github.com/QuiltLang/quilt/releases/latest" target="_blank" rel="noopener" className="example-card-link">Download .vsix &rarr;</a>
+                  <a href="https://marketplace.visualstudio.com/items?itemName=quiltlang.quiltlang" target="_blank" rel="noopener" className="example-card-link">Install from Marketplace &rarr;</a>
                   <a href="https://github.com/QuiltLang/quilt/tree/main/tools/quilt" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
                 </div>
               </div>
