@@ -1,6 +1,5 @@
 // In-browser staged demo: a self-specializing live dashboard — TypeScript that
-// writes TypeScript that writes HTML, the same three-stage idea as
-// examples/staged_pow.py.quilt, all client-side:
+// writes TypeScript that writes HTML, all client-side:
 //
 //   source ──(wasi-shim + quilt-expand.wasm)──▶ Stage 1: makeRenderer (TS)
 //   makeRenderer(schema) ──(↓ reduce: re-expand + eval)──▶ Stage 2: render (TS)
@@ -12,9 +11,9 @@
 // the expander is a separate WASI module), so quilt-rt.js adds it in JS —
 // coparse → expand → eval — and we register the page's expander into it.
 //
-// The UI mirrors the nanobots browser demo: a split-pane oneDark CodeMirror 6
-// editor on the right (with the generated render() toggled in as a read-only
-// view) and the live dashboard on the left, driven by a bottom bar with status.
+// Split-pane UI: a oneDark CodeMirror 6 editor on the right (with the generated
+// render() toggled in as a read-only view) and the live dashboard on the left,
+// driven by a bottom bar with status.
 
 import initRuntime, { setExpander, reduceTrace, clearReduceTrace } from "quilt";
 import { WASI } from "./wasi-shim.js";
@@ -71,8 +70,8 @@ function previewDoc(fragment) {
     `<link rel="stylesheet" href="./theme.css"></head><body class="preview">${fragment}</body></html>`;
 }
 
-// Push the latest generated render() into the read-only view, but only while it
-// is visible (mirrors how nanobots manages its GPU-shader view).
+// Push the latest generated render() into the read-only view, but only build or
+// refresh it while it is visible.
 function refreshStage2() {
   if (!stage2Visible) return;
   if (!stage2View) {
@@ -242,7 +241,7 @@ function setupGlyphs() {
   }, true);
 }
 
-// ── Resize handle (adapted from the nanobots demo) ────────────────────────────
+// ── Resize handle ─────────────────────────────────────────────────────────────
 function setupResize() {
   const handle = $("resize-handle");
   const edPane = $("editor-pane");
@@ -256,6 +255,10 @@ function setupResize() {
     else            { startPos = e.clientX; startSize = edPane.offsetWidth; }
     handle.classList.add("dragging");
     document.body.style.userSelect = "none";
+    // While dragging, let pointer events pass through the preview iframe —
+    // otherwise moving left over it swallows mousemove and the drag stops
+    // (the "can only drag right" bug).
+    $("preview").style.pointerEvents = "none";
   });
   handle.addEventListener("touchstart", (e) => {
     dragging = true;
@@ -263,6 +266,7 @@ function setupResize() {
     if (portrait()) { startPos = t.clientY; startSize = prevPane.offsetHeight; }
     else            { startPos = t.clientX; startSize = edPane.offsetWidth; }
     handle.classList.add("dragging");
+    $("preview").style.pointerEvents = "none";
   }, { passive: true });
 
   function onMove(x, y) {
@@ -275,7 +279,7 @@ function setupResize() {
   });
   document.addEventListener("mousemove", (e) => onMove(e.clientX, e.clientY));
   document.addEventListener("touchmove",  (e) => { const t = e.touches[0]; onMove(t.clientX, t.clientY); }, { passive: true });
-  const onUp = () => { dragging = false; handle.classList.remove("dragging"); document.body.style.userSelect = ""; };
+  const onUp = () => { dragging = false; handle.classList.remove("dragging"); document.body.style.userSelect = ""; $("preview").style.pointerEvents = ""; };
   document.addEventListener("mouseup",  onUp);
   document.addEventListener("touchend", onUp);
 }
@@ -284,7 +288,7 @@ async function main() {
   setStatus("busy", "Loading WebAssembly…");
 
   const [src, , expanderBytes] = await Promise.all([
-    fetch("./dashboard.html.ts.quilt").then((r) => r.text()),
+    fetch("./dashboard.html.ts.ts.quilt").then((r) => r.text()),
     initRuntime(),
     fetch("./quilt-expand.wasm").then((r) => r.arrayBuffer()),
   ]);
