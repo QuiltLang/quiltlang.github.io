@@ -1,19 +1,22 @@
-// In-browser meta-meta demo (issue #47): expand `.html.ts.quilt` source live,
-// then run the expansion — all client-side.
+// In-browser staged demo: a self-specializing live dashboard — TypeScript that
+// writes TypeScript that writes HTML, the same three-stage idea as
+// examples/staged_pow.py.quilt, all client-side:
 //
-//   source --(WASI shim + quilt-expand.wasm)--> TypeScript --(import + runtime)--> HTML
+//   source ──(wasi-shim + quilt-expand.wasm)──▶ Stage 1: makeRenderer (TS)
+//   makeRenderer(schema) ──(↓ reduce: re-expand + eval)──▶ Stage 2: render (TS)
+//   render(values) ──(called every second)──────────────▶ Stage 3: HTML
 //
 // `quilt-expand.wasm` is the Quilt parser+expander (wasm32-wasip1); the runtime
-// is the same `quilt-wasm` (wasm32-unknown-unknown) used by the ahead-of-time
-// demo. Both are WebAssembly; only the expander needs WASI (it links the C
-// grammars), so it runs through the small hand-rolled shim in wasi-shim.js.
+// is `quilt-wasm` (wasm32-unknown-unknown). The `↓` operator (reduce) runs a
+// generated stage; the runtime has no reduce of its own (it must re-expand, and
+// the expander is a separate WASI module), so quilt-rt.js adds it in JS —
+// coparse → expand → eval — and we register the page's expander into it.
 //
 // The UI mirrors the nanobots browser demo: a split-pane oneDark CodeMirror 6
-// editor on the right (with the expanded TypeScript toggled in as a read-only
-// view, like nanobots' GPU-shader toggle) and the rendered HTML on the left,
-// driven by a bottom compile bar with ok/err/busy status.
+// editor on the right (with the generated render() toggled in as a read-only
+// view) and the live dashboard on the left, driven by a bottom bar with status.
 
-import initRuntime from "quilt";
+import initRuntime, { setExpander, reduceTrace, clearReduceTrace } from "quilt";
 import { WASI } from "./wasi-shim.js";
 
 const $ = (id) => document.getElementById(id);
@@ -24,79 +27,121 @@ const CHAIN = ["ts", "html"]; // .html.ts: ground TypeScript, quotes default to 
 
 let expanderModule;       // compiled WebAssembly.Module for the expander
 let editorView;           // editable `.html.ts.quilt` source (cm6)
-let expandedView = null;  // read-only expanded TypeScript (cm6), created lazily
-let tsVisible = false;     // is the expanded-TS view showing?
-let autoRun = true;        // re-expand & run on edit?
-let lastExpanded = "// press Run to expand";
+let stage2View = null;    // read-only generated render() (cm6), created lazily
+let stage2Visible = false; // is the generated-render view showing?
+let autoRun = true;        // re-expand & restage on edit?
+let lastStage2 = "// press Run to stage";
+
+let demo;   // imported Stage-1 module (makeRenderer, schema, opts)
+let schema; // active layout (Reconfigure mutates this)
+let render; // current Stage-3 render(values) → HTML term
+let sim = {}; // simulated live readings, per metric key
+let timer = null; // once-a-second tick
+let ticks = 0;
 
 function setStatus(cls, msg) {
   const el = $("compile-status");
   el.className = cls;
   el.textContent = msg;
-  el.title = msg; // full text on hover, since the bar truncates
+  el.title = msg;
 }
 
 // Run the expander wasm once: stdin = source, argv = chain, returns stdout.
 function expand(source) {
   const wasi = new WASI({ args: ["quilt-expand", ...CHAIN], stdin: enc.encode(source) });
-  const instance = new WebAssembly.Instance(expanderModule, {
-    wasi_snapshot_preview1: wasi.wasiImport,
-  });
+  const instance = new WebAssembly.Instance(expanderModule, { wasi_snapshot_preview1: wasi.wasiImport });
   const code = wasi.start(instance);
-  if (code !== 0) {
-    throw new Error(dec.decode(wasi.stderrBytes) || `expander exited ${code}`);
-  }
+  if (code !== 0) throw new Error(dec.decode(wasi.stderrBytes) || `expander exited ${code}`);
   return dec.decode(wasi.stdoutBytes);
 }
 
-// Import the expanded TypeScript as a module, call its render() to get a Quilt
-// term, then coparse() it here (the harness) into an HTML string. The blob
-// module's bare `quilt` import resolves through the page import map to the
-// already-initialised runtime, so it shares the same wasm instance.
-async function run(tsSource) {
+// Import expanded Stage-1 TypeScript as a module. Its bare `quilt` import
+// resolves through the page import map to quilt-rt.js (runtime + reduce).
+async function importModule(tsSource) {
   const url = URL.createObjectURL(new Blob([tsSource], { type: "text/javascript" }));
   try {
-    const mod = await import(url);
-    if (typeof mod.render !== "function") {
-      throw new Error("expanded program does not export render()");
-    }
-    return mod.render().coparse();
+    return await import(url);
   } finally {
     URL.revokeObjectURL(url);
   }
 }
 
-// Wrap a rendered HTML fragment in a minimal document that links the shared
-// site theme by a relative href, so the preview is styled like the rest of the
-// site without inlining any CSS here.
 function previewDoc(fragment) {
   return `<!DOCTYPE html><html><head><meta charset="utf-8">` +
-    `<link rel="stylesheet" href="./theme.css"></head><body>${fragment}</body></html>`;
+    `<link rel="stylesheet" href="./theme.css"></head><body class="preview">${fragment}</body></html>`;
 }
 
-// Push the latest expansion into the read-only view, but only build/refresh it
-// while it is visible (mirrors how nanobots manages its GPU-shader view).
-function refreshExpanded() {
-  if (!tsVisible) return;
-  if (!expandedView) {
-    expandedView = window.cm6.createReadonlyView(lastExpanded, $("expanded-editor"));
+// Push the latest generated render() into the read-only view, but only while it
+// is visible (mirrors how nanobots manages its GPU-shader view).
+function refreshStage2() {
+  if (!stage2Visible) return;
+  if (!stage2View) {
+    stage2View = window.cm6.createReadonlyView(lastStage2, $("expanded-editor"));
   } else {
-    expandedView.dispatch({
-      changes: { from: 0, to: expandedView.state.doc.length, insert: lastExpanded },
-    });
+    stage2View.dispatch({ changes: { from: 0, to: stage2View.state.doc.length, insert: lastStage2 } });
   }
+}
+
+// A gentle random walk so the bars move like real telemetry.
+function stepSim() {
+  for (const m of schema) {
+    const v = sim[m.key] ?? m.max * 0.4;
+    const next = v + (Math.random() - 0.5) * m.max * 0.35;
+    sim[m.key] = Math.max(0, Math.min(m.max, Math.round(next * 10) / 10));
+  }
+}
+
+// Stage 3, once a second: just call render() with fresh readings. No expansion.
+function tick() {
+  stepSim();
+  const t0 = performance.now();
+  const html = render(sim).coparse();
+  const ms = performance.now() - t0;
+  $("preview").srcdoc = previewDoc(html);
+  ticks++;
+  setStatus("ok", `live · tick #${ticks} · render() ${ms.toFixed(2)} ms (no expansion)`);
+}
+
+// Stage 1 → Stage 2: the expensive step. makeRenderer() unrolls the schema and
+// reduces (↓) it to a render function — a pass through the wasm expander.
+function restage() {
+  clearReduceTrace();
+  const t0 = performance.now();
+  render = demo.makeRenderer(schema, demo.opts);
+  const ms = performance.now() - t0;
+  lastStage2 = reduceTrace.length ? reduceTrace[reduceTrace.length - 1].generated : "// (no reduce ran)";
+  refreshStage2();
+  tick();
+  setStatus("ok", `restaged ${schema.length} gauges in ${ms.toFixed(1)} ms · ${reduceTrace.length} expansion(s)`);
+}
+
+// Reconfigure = a user interaction that triggers the expensive outer loop:
+// shuffle and drop/add metrics, then rerun Stage 1.
+function reconfigure() {
+  if (!demo) return;
+  const all = demo.schema;
+  const shuffled = [...all].sort(() => Math.random() - 0.5);
+  const n = 2 + Math.floor(Math.random() * (all.length - 1));
+  schema = shuffled.slice(0, n);
+  sim = {};
+  restage();
+  if (!timer) timer = setInterval(tick, 1000);
 }
 
 async function expandAndRun() {
   $("btn-run").disabled = true;
+  if (timer) { clearInterval(timer); timer = null; }
   try {
-    setStatus("busy", "Expanding…");
-    lastExpanded = expand(editorView.state.doc.toString());
-    refreshExpanded();
-    setStatus("busy", "Running…");
-    const html = await run(lastExpanded);
-    $("preview").srcdoc = previewDoc(html);
-    setStatus("ok", "Compiled OK");
+    setStatus("busy", "Expanding Stage 1…");
+    const ts = expand(editorView.state.doc.toString());
+    setStatus("busy", "Staging…");
+    demo = await importModule(ts);
+    if (typeof demo.makeRenderer !== "function") throw new Error("source must export makeRenderer()");
+    schema = [...demo.schema];
+    sim = {};
+    ticks = 0;
+    restage();
+    timer = setInterval(tick, 1000);
   } catch (e) {
     setStatus("err", "✗ " + (e.message || e));
   } finally {
@@ -104,16 +149,16 @@ async function expandAndRun() {
   }
 }
 
-// ── TS toggle: swap the editable source for the read-only expansion ───────────
-function setupTsToggle() {
+// ── Toggle: swap the editable source for the generated render() ───────────────
+function setupStage2Toggle() {
   const btn = $("btn-ts");
   btn.onclick = () => {
-    tsVisible = !tsVisible;
-    btn.classList.toggle("active", tsVisible);
-    if (tsVisible) {
+    stage2Visible = !stage2Visible;
+    btn.classList.toggle("active", stage2Visible);
+    if (stage2Visible) {
       $("cm-editor").style.display = "none";
       $("expanded-editor").style.display = "flex";
-      refreshExpanded();
+      refreshStage2();
     } else {
       $("cm-editor").style.display = "";
       $("expanded-editor").style.display = "none";
@@ -121,7 +166,7 @@ function setupTsToggle() {
   };
 }
 
-// ── Auto-run: re-expand & run a short while after the source settles ───────────
+// ── Auto-run: re-expand & restage a short while after the source settles ──────
 function setupAuto() {
   const btn = $("btn-auto");
   btn.onclick = () => {
@@ -130,24 +175,19 @@ function setupAuto() {
   };
 
   let lastSource = editorView.state.doc.toString();
-  let timer = null;
+  let editTimer = null;
   setInterval(() => {
     const cur = editorView.state.doc.toString();
     if (cur === lastSource) return;
     lastSource = cur;
     if (!autoRun) return;
-    clearTimeout(timer);
+    clearTimeout(editTimer);
     setStatus("busy", "Editing…");
-    timer = setTimeout(expandAndRun, 600);
+    editTimer = setTimeout(expandAndRun, 600);
   }, 200);
 }
 
-// ── Arrow-glyph buttons + keyboard chords ─────────────────────────────────────
-// The arrow glyphs can't be typed, so the buttons insert them (wrapping the
-// selection for the bracket pairs), and the keyboard uses the same chord scheme
-// as the VS Code extension (tools/quilt): leader ⌘/Ctrl+1 then a direction
-// (arrows or vim h/j/k/l) for a single glyph; leader ⌘/Ctrl+2 then two
-// directions for the diagonal that combines them.
+// ── Arrow-glyph buttons + keyboard chords (same scheme as the VS Code ext) ────
 function insertGlyph(open, close = "") {
   const sel = editorView.state.selection.main;
   const selected = editorView.state.sliceDoc(sel.from, sel.to);
@@ -166,7 +206,7 @@ const DIAG = {
   UL: "↖", LU: "↖", UR: "↗", RU: "↗", DL: "↙", LD: "↙", DR: "↘", RD: "↘",
   LR: "↔", RL: "↔", UD: "↕", DU: "↕", UU: "↑", DD: "↓", LL: "←", RR: "→",
 };
-let chord = null, chordTimer = null; // null | "1" | "2" | "2:<dir>"
+let chord = null, chordTimer = null;
 function resetChord() { chord = null; clearTimeout(chordTimer); }
 function armChord(c) { chord = c; clearTimeout(chordTimer); chordTimer = setTimeout(resetChord, 1500); }
 
@@ -178,8 +218,6 @@ function setupGlyphs() {
     else if (btn.dataset.ins) insertGlyph(btn.dataset.ins);
   });
 
-  // Capture phase on the editor so an active chord pre-empts CodeMirror's own
-  // arrow-key handling; stopPropagation keeps the chord keys out of the editor.
   editorView.dom.addEventListener("keydown", (ev) => {
     const eat = () => { ev.preventDefault(); ev.stopPropagation(); };
     if ((ev.metaKey || ev.ctrlKey) && ev.key === "Enter") { eat(); resetChord(); expandAndRun(); return; }
@@ -245,13 +283,13 @@ function setupResize() {
 async function main() {
   setStatus("busy", "Loading WebAssembly…");
 
-  // Load the default source, the runtime, and the expander in parallel.
   const [src, , expanderBytes] = await Promise.all([
-    fetch("./cards.html.ts.quilt").then((r) => r.text()),
+    fetch("./dashboard.html.ts.quilt").then((r) => r.text()),
     initRuntime(),
     fetch("./quilt-expand.wasm").then((r) => r.arrayBuffer()),
   ]);
   expanderModule = await WebAssembly.compile(expanderBytes);
+  setExpander(expand); // so `term.reduce()` (↓) can re-expand generated stages
 
   editorView = window.cm6.createEditorView(
     window.cm6.createEditorState(src, { oneDark: true }),
@@ -259,13 +297,14 @@ async function main() {
   );
 
   $("btn-run").onclick = expandAndRun;
-  setupTsToggle();
+  $("btn-reconfig").onclick = reconfigure;
+  setupStage2Toggle();
   setupAuto();
   setupResize();
   setupGlyphs();
 
   setStatus("ok", "Ready");
-  expandAndRun(); // show output immediately
+  expandAndRun(); // stage + start ticking immediately
 }
 
 main().catch((e) => setStatus("err", "✗ " + (e.message || e)));

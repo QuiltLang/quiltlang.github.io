@@ -86,19 +86,22 @@
   <!-- The CodeMirror 6 bundle (global `cm6`), same editor the nanobots demo uses. -->
   <script src="./codemirror.min.js"></script>
 
-  <!-- Resolve the bare `quilt` specifier — used both here and inside the
-       expanded program when it is imported — to the runtime built with
-       `wasm-pack build quilt-wasm --target web`. (The npm package is
-       published as `quilt-wasm`; this maps it to the bare `quilt` name.) -->
+  <!-- Resolve the bare specifiers used here AND inside the expanded program when
+       it is imported. `quilt` is the reduce-enabled wrapper (quilt-rt.js); it
+       re-exports the runtime (published on npm as `quilt-wasm`) and adds the ↓
+       operator that runs a generated stage. -->
   <script type="importmap">
-  { "imports": { "quilt": "./quilt-wasm/quilt_wasm.js" } }
+  { "imports": {
+      "quilt": "./quilt-rt.js",
+      "quilt-wasm": "./quilt-wasm/quilt_wasm.js"
+  } }
   </script>
 </head>
 <body>
   <div id="topbar">
     <a id="brand" href="/" title="quiltlang.github.io"><img src="/img/quilt.svg" alt="Quilt" /></a>
     <span id="title">Quilt Playground</span>
-    <span id="tagline">expand <code>.html.ts.quilt</code> &rarr; TypeScript &rarr; HTML, entirely in the browser</span>
+    <span id="tagline">TypeScript that writes TypeScript that writes HTML — a staged live dashboard, entirely in the browser</span>
     <span id="spacer"></span>
     <a href="https://github.com/QuiltLang/quilt/tree/main/examples/web">source</a>
   </div>
@@ -123,8 +126,9 @@
           <button type="button" class="g-emit"    data-ins="←"   title="emit ←  (⌘/Ctrl+1 then left)">←</button>
         </span>
         <button id="btn-run" title="Expand &amp; run the source (⌘/Ctrl+Enter)">Run</button>
-        <button id="btn-ts" title="Show the expanded TypeScript">TS</button>
-        <button id="btn-auto" class="active" title="Auto expand &amp; run on edit">Auto</button>
+        <button id="btn-reconfig" title="Shuffle/drop metrics and rerun Stage 1">Reconfigure ⟳</button>
+        <button id="btn-ts" title="Show the render() that Stage 1 generated">render</button>
+        <button id="btn-auto" class="active" title="Auto expand &amp; restage on edit">Auto</button>
       </div>
     </div>
   </div>
