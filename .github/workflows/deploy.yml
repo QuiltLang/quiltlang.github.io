@@ -19,18 +19,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout site repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: quiltlang.github.io
 
       - name: Checkout quilt (wiki docs source)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: QuiltLang/quilt
           path: quilt
 
       - name: Checkout nanobots (demo source)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: QuiltLang/nanobots
           path: nanobots
@@ -39,16 +39,16 @@ jobs:
       # output is version-specific, so pin it to the tag nanobots' Cargo.toml
       # depends on (separate from the wiki checkout above, which tracks main).
       - name: Checkout quilt (nanobots expander, pinned)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: QuiltLang/quilt
           ref: v0.1.0-alpha
           path: quilt-alpha
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
           cache-dependency-path: quiltlang.github.io/docs-site/package-lock.json
 
@@ -93,10 +93,10 @@ jobs:
         working-directory: quiltlang.github.io/docs-site
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: quiltlang.github.io/docs-site/build
 
@@ -109,4 +109,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
