@@ -287,10 +287,10 @@ export default function Home(): React.ReactElement {
                 </tr>
                 <tr>
                   <td className="lang-name"><SiNixos className="lang-icon" style={{color:'#5277C3'}} />Nix</td>
-                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/nix/meta.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/nix/lang.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Generate Nix expressions &mdash; derivations, flakes, and modules &mdash; at build time. Lift Rust values into Nix literal syntax.</td>
+                  <td className="lang-desc">Generate Nix expressions &mdash; derivations, flakes, modules &mdash; at build time, or use Nix as a host: its string-based meta turns a <code>.nix.quilt</code> metaprogram into plain Nix, mapping unquotes onto Nix&rsquo;s own <code>${'{'}…{'}'}</code> interpolation.</td>
                 </tr>
                 <tr className="lang-more">
                   <td colSpan={5} className="lang-more-cell">More languages coming soon&hellip;</td>
