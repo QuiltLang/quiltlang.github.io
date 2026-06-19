@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
-import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash } from 'react-icons/si';
+import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash, SiNixos } from 'react-icons/si';
 import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode } from 'react-icons/tb';
 import './landing.css';
 
@@ -284,6 +284,13 @@ export default function Home(): React.ReactElement {
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/bash/lang.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-no">&mdash;</td>
                   <td className="lang-desc">Same as Zsh &mdash; a separate target with Bash-specific quoting semantics.</td>
+                </tr>
+                <tr>
+                  <td className="lang-name"><SiNixos className="lang-icon" style={{color:'#5277C3'}} />Nix</td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/nix/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-desc">Generate Nix expressions &mdash; derivations, flakes, and modules &mdash; at build time. Lift Rust values into Nix literal syntax.</td>
                 </tr>
                 <tr className="lang-more">
                   <td colSpan={5} className="lang-more-cell">More languages coming soon&hellip;</td>
