@@ -2,8 +2,8 @@
 // writes TypeScript that writes HTML, all client-side:
 //
 //   source ──(wasi-shim + quilt-expand.wasm)──▶ Stage 1: makeRenderer (TS)
-//   makeRenderer(schema) ──(↓ reduce: re-expand + eval)──▶ Stage 2: render (TS)
-//   render(values) ──(called every second)──────────────▶ Stage 3: HTML
+//   makeRenderer(schema) ──(↓ reduce: re-expand + eval)──▶ Stage 2: start() (TS)
+//   start(setHtml, read) ──(its own baked setInterval)───▶ Stage 3: HTML, looping
 //
 // `quilt-expand.wasm` is the Quilt parser+expander (wasm32-wasip1); the runtime
 // is `quilt-wasm` (wasm32-unknown-unknown). The `↓` operator (reduce) runs a
@@ -11,9 +11,11 @@
 // the expander is a separate WASI module), so quilt-rt.js adds it in JS —
 // coparse → expand → eval — and we register the page's expander into it.
 //
+// Stage 1 runs once and generates a start() whose own loop (interval baked in)
+// paints the HTML; this page supplies the HTML sink and the readings feed.
 // Split-pane UI: a oneDark CodeMirror 6 editor on the right (with the generated
-// render() toggled in as a read-only view) and the live dashboard on the left,
-// driven by a bottom bar with status.
+// start() loop toggled in as a read-only view) and the live dashboard on the
+// left, driven by a bottom bar with status.
 
 import initRuntime, { setExpander, reduceTrace, clearReduceTrace } from "quilt";
 import { WASI } from "./wasi-shim.js";
@@ -26,17 +28,16 @@ const CHAIN = ["ts", "html"]; // .html.ts: ground TypeScript, quotes default to 
 
 let expanderModule;       // compiled WebAssembly.Module for the expander
 let editorView;           // editable `.html.ts.quilt` source (cm6)
-let stage2View = null;    // read-only generated render() (cm6), created lazily
-let stage2Visible = false; // is the generated-render view showing?
+let stage2View = null;    // read-only generated start() loop (cm6), created lazily
+let stage2Visible = false; // is the generated start()-loop view showing?
 let autoRun = true;        // re-expand & restage on edit?
 let lastStage2 = "// press Run to stage";
 
 let demo;   // imported Stage-1 module (makeRenderer, schema, opts)
 let schema; // active layout (Reconfigure mutates this)
-let render; // current Stage-3 render(values) → HTML term
+let stopLoop = null; // interval id returned by the generated loop (to stop it)
 let sim = {}; // simulated live readings, per metric key
-let timer = null; // once-a-second tick
-let ticks = 0;
+let frames = 0;
 
 function setStatus(cls, msg) {
   const el = $("compile-status");
@@ -70,7 +71,7 @@ function previewDoc(fragment) {
     `<link rel="stylesheet" href="./theme.css"></head><body class="preview">${fragment}</body></html>`;
 }
 
-// Push the latest generated render() into the read-only view, but only build or
+// Push the latest generated start() loop into the read-only view, but only build or
 // refresh it while it is visible.
 function refreshStage2() {
   if (!stage2Visible) return;
@@ -90,28 +91,32 @@ function stepSim() {
   }
 }
 
-// Stage 3, once a second: just call render() with fresh readings. No expansion.
-function tick() {
+// The generated loop calls read() each frame for fresh readings, and setHtml()
+// with the HTML it built. The loop and its interval are codegened now, not here.
+function read() {
   stepSim();
-  const t0 = performance.now();
-  const html = render(sim).coparse();
-  const ms = performance.now() - t0;
+  return sim;
+}
+function setHtml(html) {
   $("preview").srcdoc = previewDoc(html);
-  ticks++;
-  setStatus("ok", `live · tick #${ticks} · render() ${ms.toFixed(2)} ms (no expansion)`);
+  frames++;
+  setStatus("ok", `live · frame #${frames} · the loop is codegened`);
 }
 
-// Stage 1 → Stage 2: the expensive step. makeRenderer() unrolls the schema and
-// reduces (↓) it to a render function — a pass through the wasm expander.
+// Stage 1 → Stage 2: the expensive step, run once. makeRenderer() unrolls the
+// schema and reduces (↓) to a start() that owns its own update loop. Stop any
+// previous loop, stage the new one, and let it drive the preview.
 function restage() {
+  if (stopLoop != null) { clearInterval(stopLoop); stopLoop = null; }
   clearReduceTrace();
   const t0 = performance.now();
-  render = demo.makeRenderer(schema, demo.opts);
+  const start = demo.makeRenderer(schema, demo.opts);
   const ms = performance.now() - t0;
   lastStage2 = reduceTrace.length ? reduceTrace[reduceTrace.length - 1].generated : "// (no reduce ran)";
   refreshStage2();
-  tick();
-  setStatus("ok", `restaged ${schema.length} gauges in ${ms.toFixed(1)} ms · ${reduceTrace.length} expansion(s)`);
+  frames = 0;
+  stopLoop = start(setHtml, read); // the GENERATED loop now drives updates
+  setStatus("ok", `staged ${schema.length} gauges in ${ms.toFixed(1)} ms · loop @ ${demo.opts.intervalMs} ms baked in`);
 }
 
 // Reconfigure = a user interaction that triggers the expensive outer loop:
@@ -124,12 +129,11 @@ function reconfigure() {
   schema = shuffled.slice(0, n);
   sim = {};
   restage();
-  if (!timer) timer = setInterval(tick, 1000);
 }
 
 async function expandAndRun() {
   $("btn-run").disabled = true;
-  if (timer) { clearInterval(timer); timer = null; }
+  if (stopLoop != null) { clearInterval(stopLoop); stopLoop = null; }
   try {
     setStatus("busy", "Expanding Stage 1…");
     const ts = expand(editorView.state.doc.toString());
@@ -138,9 +142,7 @@ async function expandAndRun() {
     if (typeof demo.makeRenderer !== "function") throw new Error("source must export makeRenderer()");
     schema = [...demo.schema];
     sim = {};
-    ticks = 0;
-    restage();
-    timer = setInterval(tick, 1000);
+    restage(); // stages once and starts the generated loop
   } catch (e) {
     setStatus("err", "✗ " + (e.message || e));
   } finally {
@@ -148,7 +150,7 @@ async function expandAndRun() {
   }
 }
 
-// ── Toggle: swap the editable source for the generated render() ───────────────
+// ── Toggle: swap the editable source for the generated start() loop ───────────────
 function setupStage2Toggle() {
   const btn = $("btn-ts");
   btn.onclick = () => {
