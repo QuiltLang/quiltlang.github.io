@@ -39,16 +39,15 @@
     #preview-area { flex: 1; min-height: 0; background: var(--quilt-bg); }
     #preview { width: 100%; height: 100%; border: 0; background: var(--quilt-bg); display: block; }
 
-    /* ── Config panel (schema + opts, edited by the user) above the dashboard ── */
-    #config-pane { display: flex; flex-direction: column; flex-shrink: 0; height: 11rem;
+    /* ── Config panel (schema + opts JSON, edited by the user) above the dashboard.
+       Half the height of the left side; same CodeMirror editor as the source. ── */
+    #config-pane { display: flex; flex-direction: column; flex: 1; min-height: 0;
                    border-bottom: 1px solid var(--quilt-border); }
-    #config-label { font-size: 11px; color: var(--quilt-muted); padding: 4px 8px;
+    #config-label { font-size: 11px; color: var(--quilt-muted); padding: 4px 8px; flex-shrink: 0;
                     background: var(--quilt-surface); border-bottom: 1px solid var(--quilt-border); }
     #config-label b { color: var(--tok-type); font-weight: 600; }
-    #config { flex: 1; resize: none; border: 0; outline: 0; padding: 8px;
-              background: var(--quilt-bg); color: var(--quilt-text); tab-size: 2;
-              font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 1.5; }
-    #config.err { box-shadow: inset 0 0 0 2px #f88; }
+    #config-editor { flex: 1; overflow: auto; font-size: 13px; min-height: 0; }
+    #config-editor.err { box-shadow: inset 0 0 0 2px #f88; }
 
     #resize-handle { width: 5px; cursor: col-resize; background: var(--quilt-elevated); flex-shrink: 0;
                      border-left: 1px solid var(--quilt-border); border-right: 1px solid var(--quilt-border); }
@@ -120,18 +119,8 @@
   <div id="layout">
     <div id="preview-pane">
       <div id="config-pane">
-        <div id="config-label"><b>schema &amp; opts</b> — edit to regenerate the TypeScript</div>
-        <textarea id="config" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off">const schema = [
-  { key: "cpu",  label: "CPU",      unit: "%",     max: 100 },
-  { key: "mem",  label: "Memory",   unit: "%",     max: 100 },
-  { key: "net",  label: "Network",  unit: " MB/s", max: 50  },
-  { key: "disk", label: "Disk I/O", unit: " MB/s", max: 40  },
-  { key: "gpu",  label: "GPU",      unit: "%",     max: 100 },
-  // Uncomment a metric to regenerate the dashboard with it:
-  // { key: "temp", label: "Temp", unit: "°C", max: 90 },
-  // { key: "load", label: "Load", unit: "",   max: 8  },
-];
-const opts = { width: 32, intervalMs: 1000, title: "host-01 · live" };</textarea>
+        <div id="config-label"><b>schema &amp; opts</b> (JSON) — edit to regenerate the TypeScript</div>
+        <div id="config-editor"></div>
       </div>
       <div id="preview-area">
         <iframe id="preview" sandbox="allow-same-origin" title="rendered output"></iframe>
