@@ -26,14 +26,19 @@ const dec = new TextDecoder();
 
 const CHAIN = ["ts", "html"]; // .html.ts: ground TypeScript, quotes default to HTML
 
-// The initial schema + opts shown in the config panel — raw JSON the user edits.
+// The initial schema + opts shown in the config panel. It is JSONC — JSON plus
+// // and /* */ comments and trailing commas (see stripJsonc) — so metrics can be
+// commented out and toggled on.
 const DEFAULT_CONFIG = `{
   "schema": [
     { "key": "cpu",  "label": "CPU",      "unit": "%",     "max": 100 },
     { "key": "mem",  "label": "Memory",   "unit": "%",     "max": 100 },
     { "key": "net",  "label": "Network",  "unit": " MB/s", "max": 50 },
     { "key": "disk", "label": "Disk I/O", "unit": " MB/s", "max": 40 },
-    { "key": "gpu",  "label": "GPU",      "unit": "%",     "max": 100 }
+    { "key": "gpu",  "label": "GPU",      "unit": "%",     "max": 100 },
+    // Uncomment a metric to regenerate the dashboard with it:
+    // { "key": "temp", "label": "Temp", "unit": "°C", "max": 90 },
+    // { "key": "load", "label": "Load", "unit": "",   "max": 8 }
   ],
   "opts": { "width": 32, "intervalMs": 1000, "title": "host-01 · live" }
 }`;
@@ -118,9 +123,40 @@ function setHtml(html) {
   setStatus("ok", `live · frame #${frames} · the loop is codegened`);
 }
 
-// Parse the config panel (raw JSON: { schema, opts }) into values.
+// Tolerate // and /* */ comments and trailing commas (JSONC), returning plain
+// JSON for JSON.parse. String-aware, so it never touches // or commas that sit
+// inside string values.
+function stripJsonc(s) {
+  let out = "", inStr = false, esc = false, i = 0;
+  const n = s.length;
+  while (i < n) {
+    const c = s[i];
+    if (inStr) {
+      out += c;
+      if (esc) esc = false; else if (c === "\\") esc = true; else if (c === '"') inStr = false;
+      i++;
+    } else if (c === '"') { inStr = true; out += c; i++; }
+    else if (c === "/" && s[i + 1] === "/") { i += 2; while (i < n && s[i] !== "\n") i++; }
+    else if (c === "/" && s[i + 1] === "*") { i += 2; while (i < n && !(s[i] === "*" && s[i + 1] === "/")) i++; i += 2; }
+    else if (c === ",") {
+      // Drop the comma if the next token (past whitespace/comments) closes a
+      // list or object — i.e. it is a trailing comma.
+      let j = i + 1;
+      for (;;) {
+        while (j < n && /\s/.test(s[j])) j++;
+        if (s[j] === "/" && s[j + 1] === "/") { j += 2; while (j < n && s[j] !== "\n") j++; }
+        else if (s[j] === "/" && s[j + 1] === "*") { j += 2; while (j < n && !(s[j] === "*" && s[j + 1] === "/")) j++; j += 2; }
+        else break;
+      }
+      if (s[j] === "}" || s[j] === "]") i++; else { out += c; i++; }
+    } else { out += c; i++; }
+  }
+  return out;
+}
+
+// Parse the config panel (JSONC: { schema, opts }) into values.
 function parseConfig() {
-  const { schema: s, opts: o } = JSON.parse(configView.state.doc.toString());
+  const { schema: s, opts: o } = JSON.parse(stripJsonc(configView.state.doc.toString()));
   if (!Array.isArray(s) || !s.length) throw new Error("`schema` must be a non-empty array");
   if (!o || typeof o !== "object") throw new Error("`opts` must be an object");
   return { schema: s, opts: o };
