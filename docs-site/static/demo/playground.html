@@ -43,9 +43,9 @@
        Half the height of the left side; same CodeMirror editor as the source. ── */
     #config-pane { display: flex; flex-direction: column; flex: 1; min-height: 0;
                    border-bottom: 1px solid var(--quilt-border); }
-    #config-label { font-size: 11px; color: var(--quilt-muted); padding: 4px 8px; flex-shrink: 0;
+    #config-label, #source-label { font-size: 11px; color: var(--quilt-muted); padding: 4px 8px; flex-shrink: 0;
                     background: var(--quilt-surface); border-bottom: 1px solid var(--quilt-border); }
-    #config-label b { color: var(--tok-type); font-weight: 600; }
+    #config-label b, #source-label b { color: var(--tok-type); font-weight: 600; }
     #config-editor { flex: 1; overflow: auto; font-size: 13px; min-height: 0; }
     #config-editor.err { box-shadow: inset 0 0 0 2px #f88; }
 
@@ -119,7 +119,7 @@
   <div id="layout">
     <div id="preview-pane">
       <div id="config-pane">
-        <div id="config-label"><b>schema &amp; opts</b> (JSON + comments) — edit to regenerate the TypeScript</div>
+        <div id="config-label"><b>config.jsonc</b> — edit to regenerate the dashboard</div>
         <div id="config-editor"></div>
       </div>
       <div id="preview-area">
@@ -128,6 +128,7 @@
     </div>
     <div id="resize-handle"></div>
     <div id="editor-pane">
+      <div id="source-label"><b>dashboard.html.ts.ts.quilt</b> — TypeScript that generates TypeScript that generates HTML</div>
       <div id="cm-editor"></div>
       <div id="expanded-editor"></div>
       <div id="compile-bar">
