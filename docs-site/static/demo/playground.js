@@ -40,7 +40,7 @@ const DEFAULT_CONFIG = `{
     // { "key": "temp", "label": "Temp", "unit": "°C", "max": 90 },
     // { "key": "load", "label": "Load", "unit": "",   "max": 8 },
   ],
-  "opts": { "width": 32, "intervalMs": 1000, "title": "host-01 · live" },
+  "opts": { "intervalMs": 1000, "title": "host-01 · live" },
 }`;
 
 let expanderModule;       // compiled WebAssembly.Module for the expander
