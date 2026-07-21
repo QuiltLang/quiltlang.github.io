@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
 import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash, SiNixos } from 'react-icons/si';
-import { TbCode, TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode } from 'react-icons/tb';
+import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3 } from 'react-icons/tb';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -201,16 +201,25 @@ export default function Home(): React.ReactElement {
                   <a href="https://github.com/QuiltLang/nanobots/blob/main/nanobots-codegen/src/wgsl.wgsl.rs.quilt" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">Source &rarr;</a>
                 </div>
               </div>
-              <a className="example-card" href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener">
-                <TbCode className="example-card-icon" />
-                <div className="example-card-title">Examples</div>
+              <a className="example-card" href="https://github.com/QuiltLang/metaarch" target="_blank" rel="noopener">
+                <TbTopologyStar3 className="example-card-icon" />
+                <div className="example-card-title">metaarch</div>
                 <p className="example-card-desc">
-                  Annotated <code>.quilt</code> files covering the core operators,
-                  cross-language generation, and lifted values.
+                  A distributed-system compiler built on Quilt. Describe an entire
+                  system &mdash; services, databases, events &mdash; in one{' '}
+                  <code>.arch</code> file, and it generates the whole thing: Rust and
+                  Python services, SQL schemas, clients, tests, docs, and a Nix
+                  deployment.
                 </p>
                 <span className="example-card-link">Source &rarr;</span>
               </a>
             </div>
+
+            <p className="examples-more">
+              Looking for more? Browse the annotated{' '}
+              <a href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener"><code>.quilt</code> examples</a>{' '}
+              in the quilt repo &rarr;
+            </p>
           </div>
         </div>
 

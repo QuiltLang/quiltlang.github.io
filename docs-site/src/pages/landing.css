@@ -542,6 +542,19 @@
 #landing .example-card-link-muted { color: var(--text-muted); }
 #landing .example-card-link-muted:hover { color: var(--text); }
 
+#landing .examples-more {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+}
+#landing .examples-more a {
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+#landing .examples-more a:hover { color: var(--brand-hover); }
+
 /* ── Tooling ── */
 #landing .tooling-band {
   border-bottom: 1px solid var(--border);
