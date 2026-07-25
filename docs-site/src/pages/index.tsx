@@ -1,7 +1,10 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
 import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash, SiNixos } from 'react-icons/si';
-import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3 } from 'react-icons/tb';
+// TbMathFunction stands in for Lean: react-icons ships no Lean logo (its only
+// "Lean" entry is Leanpub, an unrelated product). Swap in the real mark when
+// one is available.
+import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3, TbMathFunction } from 'react-icons/tb';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -300,6 +303,13 @@ export default function Home(): React.ReactElement {
                   <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/nix/lang.rs" target="_blank" rel="noopener">✓</a></td>
                   <td className="lang-no">&mdash;</td>
                   <td className="lang-desc">Generate Nix expressions &mdash; derivations, flakes, modules &mdash; at build time, or use Nix as a host: its string-based meta turns a <code>.nix.quilt</code> metaprogram into plain Nix, mapping unquotes onto Nix&rsquo;s own <code>${'{'}…{'}'}</code> interpolation.</td>
+                </tr>
+                <tr>
+                  <td className="lang-name"><TbMathFunction className="lang-icon" style={{color:'#8B7CF6'}} />Lean 4</td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/lean/meta.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/lean/lang.rs" target="_blank" rel="noopener">✓</a></td>
+                  <td className="lang-no">&mdash;</td>
+                  <td className="lang-desc">Generate definitions, theorems and tactic proofs at build time &mdash; specialize a lemma once per case instead of by hand. Like Nix, Lean is also a host: its string-based meta turns a <code>.lean.quilt</code> metaprogram into plain Lean, mapping unquotes onto Lean&rsquo;s own <code>s!</code> string interpolation.</td>
                 </tr>
                 <tr className="lang-more">
                   <td colSpan={5} className="lang-more-cell">More languages coming soon&hellip;</td>
