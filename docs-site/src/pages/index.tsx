@@ -232,7 +232,7 @@ export default function Home(): React.ReactElement {
             This table is <em>generated</em> from Quilt&rsquo;s conformance matrix &mdash; every cell is
             re-verified against the implementation on each CI run, so it cannot claim support that
             isn&rsquo;t tested. Hover a cell for the details.{' '}
-            <a href="https://quiltlang.github.io/docs/support-matrix">See the full matrix &rarr;</a>
+            <a href="/docs/support-matrix">See the full matrix &rarr;</a>
           </p>
 
           <SupportMatrix />
