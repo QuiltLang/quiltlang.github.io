@@ -370,18 +370,18 @@
   vertical-align: middle;
 }
 
-/* Language and indicator columns shrink to content; Notes fills the rest */
-#landing .lang-table th:nth-child(1),
-#landing .lang-table td:nth-child(1),
-#landing .lang-table th:nth-child(2),
-#landing .lang-table td:nth-child(2),
-#landing .lang-table th:nth-child(3),
-#landing .lang-table td:nth-child(3),
-#landing .lang-table th:nth-child(4),
-#landing .lang-table td:nth-child(4) { width: 1%; white-space: nowrap; }
+/* The table is all glyphs now, so the language name absorbs the slack and every
+   status column hugs its content. Centring the headers too keeps each glyph
+   under its own label. */
+#landing .lang-table th:first-child,
+#landing .lang-table td:first-child { width: 100%; }
 
-#landing .lang-table th:last-child,
-#landing .lang-table td:last-child { width: 100%; }
+#landing .lang-table th:not(:first-child),
+#landing .lang-table td:not(:first-child) {
+  width: 1%;
+  white-space: nowrap;
+  text-align: center;
+}
 
 #landing .lang-table tbody tr:last-child td { border-bottom: none; }
 #landing .lang-table tbody tr:hover { background: rgba(255,255,255,0.03); }
@@ -401,6 +401,9 @@
   margin-right: 0.5em;
 }
 
+/* Status cells are rendered from the generated conformance matrix
+   (src/components/SupportMatrix.tsx); .lang-yes / .lang-no are retained for
+   any hand-written table that still uses them. */
 #landing .lang-yes {
   text-align: center;
   color: #4ade80;
@@ -410,6 +413,51 @@
 #landing .lang-no {
   text-align: center;
   color: var(--text-muted);
+}
+
+#landing .lang-cell {
+  text-align: center;
+  white-space: nowrap;
+  cursor: help;
+}
+
+#landing .lang-cell a {
+  text-decoration: none;
+}
+
+#landing .lang-status {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* A cell the spec declares but no probe checks yet. Deliberately quiet: it
+   marks a gap in our testing, not a gap in the language. */
+#landing .lang-unverified {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  margin-left: 0.1em;
+}
+
+#landing .lang-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  justify-content: center;
+  margin-top: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+#landing .lang-key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  cursor: help;
+}
+
+#landing .lang-key-glyph {
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 #landing .lang-desc {

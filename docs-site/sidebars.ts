@@ -13,6 +13,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         { type: 'doc', id: 'concepts', label: 'Concepts' },
+        { type: 'doc', id: 'support-matrix', label: 'Support Matrix' },
       ],
     },
     {

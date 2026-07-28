@@ -1,10 +1,7 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
-import { SiRust, SiPython, SiTypescript, SiHtml5, SiWebgpu, SiZsh, SiGnubash, SiNixos } from 'react-icons/si';
-// TbMathFunction stands in for Lean: react-icons ships no Lean logo (its only
-// "Lean" entry is Leanpub, an unrelated product). Swap in the real mark when
-// one is available.
-import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3, TbMathFunction } from 'react-icons/tb';
+import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3 } from 'react-icons/tb';
+import SupportMatrix from '../components/SupportMatrix';
 import './landing.css';
 
 const squaresCode = `<code><span class="cm">#!/usr/bin/env quilt</span>
@@ -231,92 +228,12 @@ export default function Home(): React.ReactElement {
           <div className="langs-inner">
           <h2 className="section-title">Supported Languages</h2>
           <p className="section-sub">
-            Languages with Meta support can drive generation; Object languages can be quoted and spliced into.
-            The Meta and Object checkmarks link to each language&rsquo;s <code>MetaLanguage</code> and <code>Language</code> implementations;
-            Bindings link to the published runtime package.
+            Generated from Quilt&rsquo;s conformance suite &mdash; every cell is a passing test.
+            Hover for details.{' '}
+            <a href="/docs/support-matrix">Full matrix &rarr;</a>
           </p>
 
-          <div className="lang-table-wrap">
-            <table className="lang-table">
-              <thead>
-                <tr>
-                  <th>Language</th>
-                  <th>Meta</th>
-                  <th>Object</th>
-                  <th>Bindings</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="lang-name"><SiRust className="lang-icon" style={{color:'#CE422B'}} />Rust</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/rust/meta.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/rust/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://crates.io/crates/quiltlang" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-desc">Primary host. Full <code>MetaLanguage</code> support. Generated from <code>mk_meta.rs.quilt</code> by bootstrap.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiPython className="lang-icon" style={{color:'#FFD43B'}} />Python</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/python/meta.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/python/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://pypi.org/project/quilt-python/" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-desc">Second host language. PyO3 runtime module provides the same <code>QTerm</code> API in Python.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiTypescript className="lang-icon" style={{color:'#3178C6'}} />TypeScript</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/typescript/meta.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/typescript/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://www.npmjs.com/package/quilt-wasm" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-desc">Meta language behind the browser playground. The expander rewrites <code>.ts.quilt</code> quotes into plain TypeScript that calls the <code>quilt-wasm</code> runtime.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiHtml5 className="lang-icon" style={{color:'#E34F26'}} />HTML</td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/html/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Quote and splice HTML document fragments for code-generated web reports and templates.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiWebgpu className="lang-icon" style={{color:'#B48AE0'}} />WGSL</td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/wgsl/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Generate GPU shader code at build time. Lift Rust values directly into WGSL literal syntax.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiZsh className="lang-icon" style={{color:'#89E051'}} />Zsh</td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/zsh/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Generate shell scripts with correct quoting. Rust strings lift into properly escaped zsh words.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiGnubash className="lang-icon" style={{color:'#4EAA25'}} />Bash</td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/bash/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Same as Zsh &mdash; a separate target with Bash-specific quoting semantics.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><SiNixos className="lang-icon" style={{color:'#5277C3'}} />Nix</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/nix/meta.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/nix/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Generate Nix expressions &mdash; derivations, flakes, modules &mdash; at build time, or use Nix as a host: its string-based meta turns a <code>.nix.quilt</code> metaprogram into plain Nix, mapping unquotes onto Nix&rsquo;s own <code>${'{'}…{'}'}</code> interpolation.</td>
-                </tr>
-                <tr>
-                  <td className="lang-name"><TbMathFunction className="lang-icon" style={{color:'#8B7CF6'}} />Lean 4</td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/lean/meta.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-yes"><a href="https://github.com/QuiltLang/quilt/blob/main/quilt/src/langs/lean/lang.rs" target="_blank" rel="noopener">✓</a></td>
-                  <td className="lang-no">&mdash;</td>
-                  <td className="lang-desc">Generate definitions, theorems and tactic proofs at build time &mdash; specialize a lemma once per case instead of by hand. Like Nix, Lean is also a host: its string-based meta turns a <code>.lean.quilt</code> metaprogram into plain Lean, mapping unquotes onto Lean&rsquo;s own <code>s!</code> string interpolation.</td>
-                </tr>
-                <tr className="lang-more">
-                  <td colSpan={5} className="lang-more-cell">More languages coming soon&hellip;</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <SupportMatrix />
           </div>
         </section>
 

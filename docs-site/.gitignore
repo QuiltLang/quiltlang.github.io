@@ -11,6 +11,12 @@
 # nanobots demo — built from the nanobots repo by deploy.yml, not committed
 /static/demo/nanobots
 
+# Language support matrix — copied out of the quilt repo by
+# scripts/fetch-matrix.mjs (npm prestart/prebuild). It is generated there from
+# the conformance specs and verified by that repo's CI, so committing a copy
+# here would create a second source of truth. See QuiltLang/quilt#144.
+/src/data/support-matrix.json
+
 # Misc
 .DS_Store
 .env.local
