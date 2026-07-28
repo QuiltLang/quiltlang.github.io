@@ -370,13 +370,18 @@
   vertical-align: middle;
 }
 
-/* Language and indicator columns shrink to content; Notes fills the rest */
-/* Every column but the last (Notes) hugs its content. */
-#landing .lang-table th:not(:last-child),
-#landing .lang-table td:not(:last-child) { width: 1%; white-space: nowrap; }
+/* The table is all glyphs now, so the language name absorbs the slack and every
+   status column hugs its content. Centring the headers too keeps each glyph
+   under its own label. */
+#landing .lang-table th:first-child,
+#landing .lang-table td:first-child { width: 100%; }
 
-#landing .lang-table th:last-child,
-#landing .lang-table td:last-child { width: 100%; }
+#landing .lang-table th:not(:first-child),
+#landing .lang-table td:not(:first-child) {
+  width: 1%;
+  white-space: nowrap;
+  text-align: center;
+}
 
 #landing .lang-table tbody tr:last-child td { border-bottom: none; }
 #landing .lang-table tbody tr:hover { background: rgba(255,255,255,0.03); }

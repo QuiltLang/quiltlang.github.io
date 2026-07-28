@@ -35,6 +35,7 @@ interface Cell {
 interface Row {
   name: string;
   display: string;
+  /** Rendered on the wiki page, not here — the landing table is glyphs only. */
   aliases: string[];
   feature: string;
   blurb: string;
@@ -130,7 +131,6 @@ export default function SupportMatrix(): React.ReactElement {
               {COLUMNS.map((c) => (
                 <th key={c.axis} title={c.help}>{c.title}</th>
               ))}
-              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -148,7 +148,6 @@ export default function SupportMatrix(): React.ReactElement {
                   {COLUMNS.map((c) => (
                     <StatusCell key={c.axis} cell={cellOf(row, c.axis)} />
                   ))}
-                  <td className="lang-desc">{row.blurb}</td>
                 </tr>
               );
             })}

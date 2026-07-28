@@ -228,11 +228,9 @@ export default function Home(): React.ReactElement {
           <div className="langs-inner">
           <h2 className="section-title">Supported Languages</h2>
           <p className="section-sub">
-            Languages with Meta support can drive generation; Object languages can be quoted and spliced into.
-            This table is <em>generated</em> from Quilt&rsquo;s conformance matrix &mdash; every cell is
-            re-verified against the implementation on each CI run, so it cannot claim support that
-            isn&rsquo;t tested. Hover a cell for the details.{' '}
-            <a href="/docs/support-matrix">See the full matrix &rarr;</a>
+            Generated from Quilt&rsquo;s conformance suite &mdash; every cell is a passing test.
+            Hover for details.{' '}
+            <a href="/docs/support-matrix">Full matrix &rarr;</a>
           </p>
 
           <SupportMatrix />
