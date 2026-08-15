@@ -15,8 +15,11 @@ import {
 } from 'react-icons/si';
 // TbMathFunction stands in for Lean: react-icons ships no Lean logo (its only
 // "Lean" entry is Leanpub, an unrelated product). TbFileText stands in for
-// plain text.
-import { TbMathFunction, TbFileText } from 'react-icons/tb';
+// plain text. TbDatabase stands in for SQL, deliberately in preference to a
+// vendor logo — quilt's grammar is permissive and multi-dialect, so stamping
+// the row with Postgres' or MySQL's mark would claim a specificity the
+// implementation does not have.
+import { TbMathFunction, TbFileText, TbDatabase } from 'react-icons/tb';
 import matrix from '../data/support-matrix.json';
 
 const REPO = 'https://github.com/QuiltLang/quilt';
@@ -58,6 +61,7 @@ const ICONS: Record<string, { icon: React.ComponentType<{ className?: string; st
   nix: { icon: SiNixos, color: '#5277C3' },
   lean: { icon: TbMathFunction, color: '#8B7CF6' },
   text: { icon: TbFileText, color: '#9AA4B2' },
+  sql: { icon: TbDatabase, color: '#2FA4A9' },
 };
 
 const STATUS_GLYPH: Record<Status, string> = {
