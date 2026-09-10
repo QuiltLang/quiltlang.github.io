@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
-import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3 } from 'react-icons/tb';
+import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3, TbTerminal2 } from 'react-icons/tb';
 import SupportMatrix from '../components/SupportMatrix';
 import './landing.css';
 
@@ -273,6 +273,23 @@ export default function Home(): React.ReactElement {
                 </p>
                 <div className="example-card-links">
                   <a href="https://github.com/QuiltLang/quilt/tree/main/tools" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
+                </div>
+              </div>
+
+              <div className="example-card">
+                <TbTerminal2 className="example-card-icon" />
+                <div className="example-card-title">quilt repl &mdash; machines behind a prompt</div>
+                <p className="example-card-desc">
+                  Every language with a <em>machine</em> gets a REPL for free: each line is Quilt
+                  source, expanded by the ground language&rsquo;s meta-language and fed to its
+                  stateful machine, so definitions persist across lines. The same machines back{' '}
+                  <span className="rd">↓</span> (reduce) &mdash; a persistent shell process for{' '}
+                  <code>bash</code>/<code>zsh</code>, script interpreters for Python and TypeScript,
+                  with database connections and notebook kernels on the roadmap.
+                </p>
+                <div className="example-card-links">
+                  <a href="https://github.com/QuiltLang/quilt/blob/main/docs/design/machines.md" target="_blank" rel="noopener" className="example-card-link">Design &rarr;</a>
+                  <a href="https://github.com/QuiltLang/quilt/blob/main/docs/wiki/cli.md" target="_blank" rel="noopener" className="example-card-link">CLI docs &rarr;</a>
                 </div>
               </div>
 

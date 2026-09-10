@@ -78,7 +78,7 @@ const STATUS_MEANING: Record<Status, string> = {
   planned: 'Intended and tracked by an issue; not yet implemented',
 };
 
-// The axes worth showing on the landing page. The full 17-axis matrix lives on
+// The axes worth showing on the landing page. The full 18-axis matrix lives on
 // the wiki page; this is the summary a visitor actually wants, chosen so every
 // column is one a probe verifies rather than one we only assert in prose.
 const COLUMNS: { axis: string; title: string; help: string }[] = [
@@ -86,6 +86,7 @@ const COLUMNS: { axis: string; title: string; help: string }[] = [
   { axis: 'host', title: 'Meta', help: 'Has a MetaLanguage, so it can drive generation as a ground language' },
   { axis: 'lift-into', title: 'Lift in', help: 'Host values lift into this language’s literal syntax via ↑' },
   { axis: 'emit', title: 'Emit ←', help: 'Terms can be appended into a variadic container' },
+  { axis: 'machine', title: 'Machine', help: 'A stateful machine executes this language, holding definitions between feeds — what backs quilt repl' },
   { axis: 'runtime-binding', title: 'Runtime', help: 'A published package implements the QTerm builder API' },
 ];
 
