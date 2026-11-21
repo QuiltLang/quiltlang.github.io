@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "node scripts/fetch-matrix.mjs",
+    "prestart": "node scripts/fetch-matrix.mjs && node scripts/release-cards.mjs",
     "start": "docusaurus start",
-    "prebuild": "node scripts/fetch-matrix.mjs",
+    "prebuild": "node scripts/fetch-matrix.mjs && node scripts/release-cards.mjs",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -15,7 +15,8 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "fetch-matrix": "node scripts/fetch-matrix.mjs"
+    "fetch-matrix": "node scripts/fetch-matrix.mjs",
+    "release-cards": "node scripts/release-cards.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",
@@ -32,7 +33,12 @@
     "@docusaurus/module-type-aliases": "3.10.1",
     "@docusaurus/tsconfig": "3.10.1",
     "@docusaurus/types": "3.10.1",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/react": "^19.0.0",
+    "gray-matter": "^4.0.3",
+    "satori": "^0.63.2",
     "typescript": "~6.0.2"
   },
   "browserslist": {
