@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Bundle editor.js → ../../static/demo/codemirror.min.js (IIFE, global `cm6`).
+// Bundle editor.js → ../../static/runtime/codemirror.min.js (IIFE, global `cm6`).
 // Run `npm install` in this directory first, then `node build.mjs`.
 import * as esbuild from 'esbuild';
 import { fileURLToPath } from 'url';
@@ -13,7 +13,7 @@ await esbuild.build({
   format: 'iife',
   globalName: 'cm6',
   minify: true,
-  outfile: resolve(here, '..', '..', 'static', 'demo', 'codemirror.min.js'),
+  outfile: resolve(here, '..', '..', 'static', 'runtime', 'codemirror.min.js'),
 });
 
-console.log('→ static/demo/codemirror.min.js');
+console.log('→ static/runtime/codemirror.min.js');

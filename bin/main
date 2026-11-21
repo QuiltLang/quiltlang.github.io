@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Run the site locally: install deps if needed, stage a local nanobots build
+# (if ../nanobots/build exists) at /nanobots/, then start the Docusaurus dev
+# server on http://localhost:3000. Extra args go to `docusaurus start`
+# (e.g. `bin/main --port 4000`).
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT/docs-site"
+
+if [ ! -d node_modules ]; then
+  npm ci
+fi
+
+# CI builds and stages nanobots in deploy.yml; locally, reuse a sibling build.
+NANOBOTS_BUILD="$ROOT/../nanobots/build/index.html"
+if [ -f "$NANOBOTS_BUILD" ]; then
+  mkdir -p static/nanobots
+  cp "$NANOBOTS_BUILD" static/nanobots/index.html
+else
+  echo "note: $NANOBOTS_BUILD not found; /nanobots/ won't work locally (run nanobots/bin/build)" >&2
+fi
+
+exec npm start -- "$@"

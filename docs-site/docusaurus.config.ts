@@ -64,25 +64,22 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
+        { to: '/demos', label: 'Demos', position: 'left' },
+        { to: '/tools', label: 'Tools', position: 'left' },
         {
-          // Static demos under static/demo/ (served at /demo/), not Docusaurus
-          // routes. The `pathname://` prefix links straight to the file,
-          // bypassing the SPA router and broken-link checker.
-          href: 'pathname:///demo/',
-          target: '_self',
-          label: 'Demo',
-          position: 'left',
-        },
-        {
-          href: 'pathname:///demo/playground.html',
+          // Static pages under static/ (e.g. static/playground/), not
+          // Docusaurus routes. The `pathname://` prefix links straight to the
+          // file, bypassing the SPA router and broken-link checker. The old
+          // /demo/… URLs are redirect stubs in static/demo/.
+          href: 'pathname:///playground/',
           target: '_self',
           label: 'Playground',
           position: 'left',
         },
         {
           // Self-contained WebGPU demo built from the nanobots repo by
-          // deploy.yml and staged into static/demo/nanobots/.
-          href: 'pathname:///demo/nanobots/',
+          // deploy.yml and staged into static/nanobots/.
+          href: 'pathname:///nanobots/',
           target: '_self',
           label: 'NanoBots',
           position: 'left',

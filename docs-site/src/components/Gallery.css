@@ -1,0 +1,105 @@
+/* Gallery pages (Demos, Tools): a masonry grid of cards, each led by a full-bleed preview. */
+.gallery-page {
+  --gal-card: #ffffff;
+  --gal-line: var(--ifm-color-emphasis-300);
+  --gal-muted: var(--ifm-color-emphasis-700);
+  --gal-shot-bg: var(--ifm-color-emphasis-100);
+  --gal-tag-bg: rgba(249, 115, 22, 0.1);
+  --gal-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 16px rgb(0 0 0 / 0.06);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+}
+[data-theme='dark'] .gallery-page {
+  --gal-card: #161b22;
+  --gal-line: #30363d;
+  --gal-muted: #8b949e;
+  --gal-shot-bg: #0d1117;
+  --gal-tag-bg: rgba(249, 115, 22, 0.14);
+  --gal-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 4px 16px rgb(0 0 0 / 0.25);
+}
+
+.gallery-hero { margin-bottom: 2rem; }
+.gallery-hero h1 { font-size: 2.4rem; margin-bottom: 0.4rem; }
+.gallery-hero p { color: var(--gal-muted); font-size: 1.1rem; margin: 0; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* Set by the masonry hook: each card spans enough 4px rows for its height. */
+.gallery-grid.masonry { grid-auto-rows: 4px; row-gap: 0; align-items: start; }
+
+.gal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0;
+  overflow: hidden;
+  background: var(--gal-card);
+  border: 1px solid var(--gal-line);
+  border-radius: 0.8rem;
+  box-shadow: var(--gal-shadow);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.gal-card:hover { border-color: var(--ifm-color-primary); transform: translateY(-2px); }
+.gal-card > :not(.gal-shot) { margin-left: 1.15rem; margin-right: 1.15rem; }
+
+.gal-shot {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  margin-bottom: 0.55rem;
+  background: var(--gal-shot-bg);
+  border-bottom: 1px solid var(--gal-line);
+}
+.gal-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  transition: transform 0.35s ease;
+}
+.gal-card:hover .gal-shot img { transform: scale(1.045); }
+
+.gal-card h3 { font-size: 1.12rem; margin: 0; }
+.gal-card h3 a { color: var(--ifm-heading-color); text-decoration: none; }
+/* Whole card is clickable via the title link. */
+.gal-card h3 a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.gal-card h3 a:hover { color: var(--ifm-color-primary); }
+
+.gal-card p { margin: 0; color: var(--gal-muted); font-size: 0.95rem; line-height: 1.55; }
+.gal-card p code { font-size: 0.85em; }
+
+.gal-links {
+  margin-top: auto;
+  padding: 0.5rem 0 1.05rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  font-size: 0.88rem;
+}
+.gal-links a { position: relative; z-index: 1; font-weight: 550; text-decoration: none; }
+.gal-links a:hover { text-decoration: underline; }
+.gal-ext { font-size: 0.8em; color: var(--gal-muted); }
+
+.gal-tag {
+  font: 500 0.75rem/1 var(--ifm-font-family-monospace);
+  color: var(--ifm-color-primary);
+  background: var(--gal-tag-bg);
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gal-card, .gal-shot img { transition: none; }
+  .gal-card:hover { transform: none; }
+  .gal-card:hover .gal-shot img { transform: none; }
+}

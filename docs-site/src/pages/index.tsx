@@ -47,6 +47,8 @@ export default function Home(): React.ReactElement {
           </a>
           <div className="nav-links">
             <a href="/docs/">Docs</a>
+            <a href="/demos">Demos</a>
+            <a href="/tools">Tools</a>
             <a href="https://github.com/QuiltLang/quilt" target="_blank" rel="noopener">GitHub</a>
           </div>
         </nav>
@@ -179,7 +181,7 @@ export default function Home(): React.ReactElement {
             <p className="section-sub">Real projects built with Quilt.</p>
 
             <div className="examples-grid">
-              <a className="example-card" href="/demo/playground.html">
+              <a className="example-card" href="/playground/">
                 <TbSandbox className="example-card-icon" />
                 <div className="example-card-title">Browser Playground</div>
                 <p className="example-card-desc">
@@ -197,7 +199,7 @@ export default function Home(): React.ReactElement {
                   GPU-friendly WGSL and HTML at build time.
                 </p>
                 <div className="example-card-links">
-                  <a href="/demo/nanobots/" className="example-card-link">Live Demo &rarr;</a>
+                  <a href="/nanobots/" className="example-card-link">Live Demo &rarr;</a>
                   <a href="https://github.com/QuiltLang/nanobots/blob/main/nanobots-codegen/src/wgsl.wgsl.rs.quilt" target="_blank" rel="noopener" className="example-card-link example-card-link-muted">Source &rarr;</a>
                 </div>
               </div>
@@ -216,9 +218,7 @@ export default function Home(): React.ReactElement {
             </div>
 
             <p className="examples-more">
-              Looking for more? Browse the annotated{' '}
-              <a href="https://github.com/QuiltLang/quilt/tree/main/examples" target="_blank" rel="noopener"><code>.quilt</code> examples</a>{' '}
-              in the quilt repo &rarr;
+              <a href="/demos">See all demos &rarr;</a>
             </p>
           </div>
         </div>
@@ -307,6 +307,10 @@ export default function Home(): React.ReactElement {
                 </div>
               </div>
             </div>
+
+            <p className="examples-more">
+              <a href="/tools">See all tools &rarr;</a>
+            </p>
           </div>
         </div>
 

@@ -2,7 +2,7 @@
   "name": "quilt-playground-cm6",
   "private": true,
   "type": "module",
-  "description": "CodeMirror 6 bundle for the Quilt browser playground (static/demo/codemirror.min.js).",
+  "description": "CodeMirror 6 bundle for the Quilt browser playground (static/runtime/codemirror.min.js).",
   "scripts": {
     "build": "node build.mjs"
   },
