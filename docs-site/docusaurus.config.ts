@@ -67,24 +67,6 @@ const config: Config = {
         { to: '/demos', label: 'Demos', position: 'left' },
         { to: '/tools', label: 'Tools', position: 'left' },
         {
-          // Static pages under static/ (e.g. static/playground/), not
-          // Docusaurus routes. The `pathname://` prefix links straight to the
-          // file, bypassing the SPA router and broken-link checker. The old
-          // /demo/… URLs are redirect stubs in static/demo/.
-          href: 'pathname:///playground/',
-          target: '_self',
-          label: 'Playground',
-          position: 'left',
-        },
-        {
-          // Self-contained WebGPU demo built from the nanobots repo by
-          // deploy.yml and staged into static/nanobots/.
-          href: 'pathname:///nanobots/',
-          target: '_self',
-          label: 'NanoBots',
-          position: 'left',
-        },
-        {
           href: 'https://github.com/QuiltLang/quilt',
           label: 'GitHub',
           position: 'right',
