@@ -28,6 +28,11 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
+      type: 'doc',
+      id: 'release-notes',
+      label: 'Release Notes',
+    },
+    {
       type: 'category',
       label: 'Internals',
       collapsed: true,

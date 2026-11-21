@@ -100,6 +100,7 @@ const config: Config = {
             { label: 'Concepts', to: '/docs/concepts' },
             { label: 'QTerm IR', to: '/docs/qterm' },
             { label: 'CLI & Scripts', to: '/docs/cli' },
+            { label: 'Release Notes', to: '/docs/release-notes' },
           ],
         },
         {
