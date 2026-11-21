@@ -35,6 +35,12 @@ jobs:
           repository: QuiltLang/nanobots
           path: nanobots
 
+      - name: Checkout phib (demo source)
+        uses: actions/checkout@v7
+        with:
+          repository: QuiltLang/phib
+          path: phib
+
       # nanobots' .rs.quilt sources are expanded by the quilt CLI; its expander
       # output is version-specific, so pin it to the tag nanobots' Cargo.toml
       # depends on (separate from the wiki checkout above, which tracks main).
@@ -83,6 +89,11 @@ jobs:
         run: |
           mkdir -p quiltlang.github.io/docs-site/static/nanobots
           cp nanobots/build/index.html quiltlang.github.io/docs-site/static/nanobots/index.html
+
+      # Phib is plain ES modules with no build step (its Quilt-expanded modules
+      # are committed), so its static dir is served as-is.
+      - name: Stage phib demo (served at /phib/)
+        run: cp -r phib/src/phib/static quiltlang.github.io/docs-site/static/phib
 
       - name: Install dependencies
         run: npm ci

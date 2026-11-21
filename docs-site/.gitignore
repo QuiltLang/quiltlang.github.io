@@ -10,6 +10,8 @@
 
 # nanobots demo — built from the nanobots repo by deploy.yml, not committed
 /static/nanobots
+# phib demo, copied from the phib repo by deploy.yml, not committed
+/static/phib
 
 # Language support matrix — copied out of the quilt repo by
 # scripts/fetch-matrix.mjs (npm prestart/prebuild). It is generated there from

@@ -19,6 +19,21 @@ const demos: GalleryItem[] = [
     links: [{ label: 'Source', href: `${GH}/nanobots` }],
   },
   {
+    title: 'Phib',
+    href: '/phib/',
+    image: '/img/demos/phib.webp',
+    description: (
+      <>
+        A language for cellular automata, where every rule is a picture of
+        cells before and after. Play its frog puzzles, redraw the rules, and
+        race three engines. The JavaScript and WGSL compilers are written in
+        Quilt.
+      </>
+    ),
+    tags: ['gpu', 'wgsl', 'javascript'],
+    links: [{ label: 'Source', href: `${GH}/phib` }],
+  },
+  {
     title: 'Browser Playground',
     href: '/playground/',
     image: '/img/demos/playground.webp',
