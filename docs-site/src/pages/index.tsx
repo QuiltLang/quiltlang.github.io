@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
-import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbTopologyStar3, TbTerminal2 } from 'react-icons/tb';
+import { TbStack2, TbBraces, TbWorld } from 'react-icons/tb';
 import SupportMatrix from '../components/SupportMatrix';
 import './landing.css';
 
@@ -182,7 +182,7 @@ export default function Home(): React.ReactElement {
 
             <div className="examples-grid">
               <a className="example-card" href="/playground/">
-                <TbSandbox className="example-card-icon" />
+                <div className="example-card-shot"><img src="/img/demos/playground.webp" alt="" loading="lazy" /></div>
                 <div className="example-card-title">Browser Playground</div>
                 <p className="example-card-desc">
                   Edit a <code>.html.ts.quilt</code> source and watch Quilt&rsquo;s
@@ -192,7 +192,7 @@ export default function Home(): React.ReactElement {
                 <span className="example-card-link">Open the playground &rarr;</span>
               </a>
               <div className="example-card">
-                <TbRobot className="example-card-icon" />
+                <div className="example-card-shot"><img src="/img/demos/nanobots.webp" alt="" loading="lazy" /></div>
                 <div className="example-card-title">Nanobots</div>
                 <p className="example-card-desc">
                   A gas-metered state-machine toolchain that uses Quilt to generate
@@ -204,7 +204,7 @@ export default function Home(): React.ReactElement {
                 </div>
               </div>
               <a className="example-card" href="https://github.com/QuiltLang/metaarch" target="_blank" rel="noopener">
-                <TbTopologyStar3 className="example-card-icon" />
+                <div className="example-card-shot"><img src="/img/demos/metaarch.webp" alt="" loading="lazy" /></div>
                 <div className="example-card-title">metaarch</div>
                 <p className="example-card-desc">
                   A distributed-system compiler built on Quilt. Describe an entire
@@ -245,7 +245,7 @@ export default function Home(): React.ReactElement {
 
             <div className="examples-grid">
               <div className="example-card">
-                <TbServer2 className="example-card-icon" />
+                <div className="example-card-shot"><img src="/img/tools/lsp.webp" alt="" loading="lazy" /></div>
                 <div className="example-card-title">quilt-lsp &mdash; the language server</div>
                 <p className="example-card-desc">
                   A multiplexing server: it parses a <code>.quilt</code> file&rsquo;s structure,
@@ -261,7 +261,7 @@ export default function Home(): React.ReactElement {
               </div>
 
               <div className="example-card">
-                <TbKeyboard className="example-card-icon" />
+                <div className="example-card-shot"><img src="/img/tools/keys.webp" alt="" loading="lazy" /></div>
                 <div className="example-card-title">Glyph keyboard shortcuts</div>
                 <p className="example-card-desc">
                   Quilt&rsquo;s operators are Unicode glyphs &mdash; but you never have to hunt for them.
@@ -277,7 +277,7 @@ export default function Home(): React.ReactElement {
               </div>
 
               <div className="example-card">
-                <TbTerminal2 className="example-card-icon" />
+                <div className="example-card-shot"><img src="/img/tools/repl.webp" alt="" loading="lazy" /></div>
                 <div className="example-card-title">quilt repl &mdash; machines behind a prompt</div>
                 <p className="example-card-desc">
                   Every language with a <em>machine</em> gets a REPL for free: each line is Quilt

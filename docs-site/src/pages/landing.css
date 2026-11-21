@@ -555,6 +555,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  overflow: hidden;
   transition: border-color 0.15s;
 }
 #landing .example-card:hover { border-color: var(--brand); }
@@ -563,6 +564,30 @@
   height: 2rem;
   color: var(--brand);
   flex-shrink: 0;
+}
+/* Preview banner: the same image as the card on /demos or /tools, bled to the
+   card edges at a fixed height so every card in a row lines up. */
+#landing .example-card-shot {
+  height: 180px;
+  margin: -1.5rem -1.5rem 0.4rem;
+  overflow: hidden;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  flex-shrink: 0;
+}
+#landing .example-card-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  transition: transform 0.35s ease;
+}
+#landing .example-card:hover .example-card-shot img { transform: scale(1.045); }
+@media (prefers-reduced-motion: reduce) {
+  #landing .example-card-shot img { transition: none; }
+  #landing .example-card:hover .example-card-shot img { transform: none; }
 }
 #landing .example-card-title {
   font-weight: 700;
