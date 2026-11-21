@@ -79,10 +79,10 @@ jobs:
           QUILT: ${{ github.workspace }}/quilt-alpha/bin/quilt
         run: bin/build
 
-      - name: Stage nanobots demo (served at /demo/nanobots/)
+      - name: Stage nanobots demo (served at /nanobots/)
         run: |
-          mkdir -p quiltlang.github.io/docs-site/static/demo/nanobots
-          cp nanobots/build/index.html quiltlang.github.io/docs-site/static/demo/nanobots/index.html
+          mkdir -p quiltlang.github.io/docs-site/static/nanobots
+          cp nanobots/build/index.html quiltlang.github.io/docs-site/static/nanobots/index.html
 
       - name: Install dependencies
         run: npm ci

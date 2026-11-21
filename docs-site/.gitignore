@@ -9,7 +9,7 @@
 .cache-loader
 
 # nanobots demo — built from the nanobots repo by deploy.yml, not committed
-/static/demo/nanobots
+/static/nanobots
 
 # Language support matrix — copied out of the quilt repo by
 # scripts/fetch-matrix.mjs (npm prestart/prebuild). It is generated there from

@@ -18,7 +18,7 @@
 // left, driven by a bottom bar with status.
 
 import initRuntime, { setExpander, reduceTrace, clearReduceTrace } from "quilt";
-import { WASI } from "./wasi-shim.js";
+import { WASI } from "/runtime/wasi-shim.js";
 
 const $ = (id) => document.getElementById(id);
 const enc = new TextEncoder();
@@ -88,7 +88,7 @@ async function importModule(tsSource) {
 
 function previewDoc(fragment) {
   return `<!DOCTYPE html><html><head><meta charset="utf-8">` +
-    `<link rel="stylesheet" href="./theme.css"></head><body class="preview">${fragment}</body></html>`;
+    `<link rel="stylesheet" href="/runtime/theme.css"></head><body class="preview">${fragment}</body></html>`;
 }
 
 // Push the latest generated start() loop into the read-only view, but only build or
@@ -380,9 +380,9 @@ async function main() {
   setStatus("busy", "Loading WebAssembly…");
 
   const [src, , expanderBytes] = await Promise.all([
-    fetch("./dashboard.html.ts.ts.quilt").then((r) => r.text()),
+    fetch("/playground/dashboard.html.ts.ts.quilt").then((r) => r.text()),
     initRuntime(),
-    fetch("./quilt-expand.wasm").then((r) => r.arrayBuffer()),
+    fetch("/runtime/quilt-expand.wasm").then((r) => r.arrayBuffer()),
   ]);
   expanderModule = await WebAssembly.compile(expanderBytes);
   setExpander(expand); // so `term.reduce()` (↓) can re-expand generated stages

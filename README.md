@@ -12,13 +12,22 @@ mkdir QuiltLang && cd QuiltLang
 git clone https://github.com/QuiltLang/quiltlang.github.io
 git clone https://github.com/QuiltLang/quilt
 
-# Install dependencies and start the dev server
-cd quiltlang.github.io/docs-site
-npm install
-npm start
+# Install dependencies (first run) and start the dev server
+quiltlang.github.io/bin/main
 ```
 
-The site is served at `http://localhost:3000`.
+The site is served at `http://localhost:3000`. `bin/main` also stages a sibling
+`nanobots/build/` (from `nanobots/bin/build`), if present, at `/nanobots/`; extra
+arguments go to `docusaurus start` (e.g. `bin/main --port 4000`).
+
+## Layout
+
+- `docs-site/src/pages/` — the landing page plus the `/demos` and `/tools` galleries
+  (cards live in `demos.tsx` / `tools.tsx`, previews in `static/img/{demos,tools}/`).
+- `docs-site/static/playground/`, `static/ts-to-html/` — static browser demos, served
+  as-is; `static/nanobots/` is built and staged by `deploy.yml`.
+- `docs-site/static/runtime/` — the shared wasm runtime, expander and editor bundle.
+- `docs-site/static/demo/` — redirect stubs for the old `/demo/…` URLs.
 
 ## Build
 
