@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from '@docusaurus/Head';
-import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbBrandVscode, TbTopologyStar3, TbTerminal2 } from 'react-icons/tb';
+import { TbRobot, TbStack2, TbBraces, TbWorld, TbSandbox, TbServer2, TbKeyboard, TbTopologyStar3, TbTerminal2 } from 'react-icons/tb';
 import SupportMatrix from '../components/SupportMatrix';
 import './landing.css';
 
@@ -290,20 +290,6 @@ export default function Home(): React.ReactElement {
                 <div className="example-card-links">
                   <a href="https://github.com/QuiltLang/quilt/blob/main/docs/design/machines.md" target="_blank" rel="noopener" className="example-card-link">Design &rarr;</a>
                   <a href="https://github.com/QuiltLang/quilt/blob/main/docs/wiki/cli.md" target="_blank" rel="noopener" className="example-card-link">CLI docs &rarr;</a>
-                </div>
-              </div>
-
-              <div className="example-card">
-                <TbBrandVscode className="example-card-icon" />
-                <div className="example-card-title">VS Code extension</div>
-                <p className="example-card-desc">
-                  An extension bundling the language server and the <code>.quilt</code>{' '}
-                  grammar for syntax highlighting &mdash; so the whole experience works out of the box.
-                  Install it straight from the VS Code Marketplace.
-                </p>
-                <div className="example-card-links">
-                  <a href="https://marketplace.visualstudio.com/items?itemName=quiltlang.quiltlang" target="_blank" rel="noopener" className="example-card-link">Install from Marketplace &rarr;</a>
-                  <a href="https://github.com/QuiltLang/quilt/tree/main/tools/quilt" target="_blank" rel="noopener" className="example-card-link">Source &rarr;</a>
                 </div>
               </div>
             </div>
