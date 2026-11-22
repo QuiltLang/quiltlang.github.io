@@ -37,6 +37,17 @@ export default function Home(): React.ReactElement {
       <Head>
         <title>Quilt &mdash; Polyglot metaprogramming language</title>
         <meta name="description" content="Quilt lets metaprograms in any language generate and manipulate code in any other language using standardized arrow glyphs." />
+        {/* This page skips <Layout>, so it doesn't get themeConfig.image; set the card here. */}
+        <meta property="og:title" content="Quilt — Polyglot metaprogramming language" />
+        <meta property="og:description" content="Quilt lets metaprograms in any language generate and manipulate code in any other language using standardized arrow glyphs." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://quiltlang.github.io/" />
+        <meta property="og:image" content="https://quiltlang.github.io/img/social-card.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Quilt: metaprogramming across every language" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://quiltlang.github.io/img/social-card.png" />
       </Head>
 
       <header>

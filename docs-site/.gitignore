@@ -33,3 +33,5 @@ yarn-error.log*
 # Release social cards — rendered from quilt/docs/wiki/releases/*.md front
 # matter by scripts/release-cards.mjs (npm prestart/prebuild).
 /static/img/releases
+# Site-wide social card, rendered by the same script.
+/static/img/social-card.png

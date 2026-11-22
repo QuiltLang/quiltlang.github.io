@@ -1,5 +1,6 @@
-// Render a social-sharing card (Open Graph / LinkedIn / X image) for every
-// release page in the quilt repo.
+// Render social-sharing cards (Open Graph / LinkedIn / X images): one for the
+// site as a whole (static/img/social-card.png, the default og:image for every
+// page) and one for every release page in the quilt repo.
 //
 // Each release has its own page, quilt/docs/wiki/releases/vX.Y.Z.md, so each
 // has its own URL and its own og:image. The page's front matter names the
@@ -66,11 +67,6 @@ const GLYPHS = {
   "←": [-90, "#34d399"], // emit
 };
 const GLYPH_RE = /([↖↗↙↘↑↓←])/u;
-
-if (!existsSync(releasesDir)) {
-  console.log(`release-cards: no ${releasesDir} — nothing to render`);
-  process.exit(0);
-}
 
 const font = (pkg, file) =>
   readFileSync(join(siteRoot, "node_modules", "@fontsource", pkg, "files", file));
@@ -210,6 +206,103 @@ function card({ version, date, headline, highlights }) {
   );
 }
 
+// The site-wide card (themeConfig.image, and the landing page's own og:image):
+// what Quilt is, the five glyphs, and a one-line taste of the syntax.
+function siteCard() {
+  const stripe = h(
+    "div",
+    { width: "100%", height: 10 },
+    ["#f97316", "#60a5fa", "#facc15", "#c084fc", "#34d399"].map((c) =>
+      h("div", { flex: 1, height: "100%", background: c }),
+    ),
+  );
+
+  const top = h(
+    "div",
+    { alignItems: "center", justifyContent: "space-between", width: "100%" },
+    h(
+      "div",
+      { alignItems: "center", gap: 18 },
+      { type: "img", props: { src: logo, width: 52, height: 52 } },
+      h("div", { fontSize: 40, fontWeight: 700, color: C.heading, letterSpacing: -0.5 }, "Quilt"),
+    ),
+    h("div", { fontSize: 24, fontWeight: 500, color: C.muted }, "quiltlang.github.io"),
+  );
+
+  const middle = h(
+    "div",
+    { flexDirection: "column", gap: 22 },
+    h(
+      "div",
+      { flexDirection: "column", fontSize: 76, fontWeight: 700, color: C.heading, lineHeight: 1.08, letterSpacing: -2 },
+      h("div", {}, "Metaprogramming"),
+      h("div", { whiteSpace: "pre" }, h("div", { whiteSpace: "pre" }, "across "),
+        h("div", { color: C.orange }, "every language.")),
+    ),
+    h(
+      "div",
+      { fontSize: 30, fontWeight: 500, color: C.text, lineHeight: 1.35, maxWidth: 960 },
+      "Metaprograms in any language generate and manipulate code in any other, using five arrow glyphs.",
+    ),
+  );
+
+  const ops = [
+    ["↖", "quote"],
+    ["↙", "unquote"],
+    ["↑", "lift"],
+    ["↓", "reduce"],
+    ["←", "emit"],
+  ];
+  const chips = h(
+    "div",
+    { flexWrap: "wrap", gap: 12 },
+    ops.map(([g, name]) =>
+      h(
+        "div",
+        {
+          alignItems: "center",
+          gap: 8,
+          fontSize: 24,
+          fontWeight: 500,
+          color: C.text,
+          background: C.surface,
+          border: `1px solid ${C.border}`,
+          borderRadius: 10,
+          padding: "8px 16px 8px 10px",
+        },
+        arrow(g, 26),
+        h("div", {}, name),
+      ),
+    ),
+  );
+
+  return h(
+    "div",
+    { width: W, height: H, flexDirection: "column", background: C.bg, fontFamily: "Inter" },
+    stripe,
+    h(
+      "div",
+      { flex: 1, flexDirection: "column", justifyContent: "space-between", padding: "44px 64px 48px" },
+      top,
+      middle,
+      chips,
+    ),
+  );
+}
+
+async function render(node, out) {
+  const svg = await satori(node, { width: W, height: H, fonts });
+  writeFileSync(out, new Resvg(svg, { fitTo: { mode: "width", value: W } }).render().asPng());
+}
+
+await render(siteCard(), join(siteRoot, "static", "img", "social-card.png"));
+console.log("release-cards: site card → static/img/social-card.png");
+
+if (!existsSync(releasesDir)) {
+  console.log(`release-cards: no ${releasesDir} — no release cards to render`);
+  process.exit(0);
+}
+
 mkdirSync(outDir, { recursive: true });
 const pages = readdirSync(releasesDir).filter((f) => /^v\d+\.\d+\.\d+.*\.mdx?$/.test(f));
 let failed = false;
@@ -224,12 +317,10 @@ for (const file of pages) {
   }
   const c = fm.card ?? {};
   const date = c.date instanceof Date ? c.date.toISOString().slice(0, 10) : c.date;
-  const svg = await satori(
+  await render(
     card({ version, date, headline: c.headline ?? fm.description, highlights: c.highlights }),
-    { width: W, height: H, fonts },
+    join(outDir, `${version}.png`),
   );
-  const png = new Resvg(svg, { fitTo: { mode: "width", value: W } }).render().asPng();
-  writeFileSync(join(outDir, `${version}.png`), png);
   console.log(`release-cards: ${file} → static/img/releases/${version}.png`);
 }
 if (failed) process.exit(1);

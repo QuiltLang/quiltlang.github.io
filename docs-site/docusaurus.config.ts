@@ -59,6 +59,9 @@ const config: Config = {
   ],
 
   themeConfig: {
+    // Default social sharing card (og:image / twitter:image) for every page;
+    // rendered by scripts/release-cards.mjs on prestart/prebuild.
+    image: 'img/social-card.png',
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: false,
