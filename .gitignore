@@ -13,3 +13,7 @@ docs-site/.docusaurus/
 
 # OS
 .DS_Store
+
+# Claude Code local overrides and worktrees (per-machine)
+.claude/settings.local.json
+.claude/worktrees/
